@@ -9,6 +9,9 @@ import DangNhap from "./pages/DangNhap";
 import DangKy from "./pages/DangKy";
 import { store } from "./Redux/store";
 import { Provider } from "react-redux";
+import QuanTri from "./pages/Admin/QuanTri";
+import Phim from "./pages/Admin/Phim";
+import NguoiDung from "./pages/Admin/NguoiDung";
 
 function App() {
   return (
@@ -23,6 +26,13 @@ function App() {
             <Route path="chitietphongve" element={<ChiTietPhongVe />} />
             <Route path="dangnhap" element={<DangNhap />} />
             <Route path="dangky" element={<DangKy />} />
+
+            {/* Admin */}
+            <Route path="QuanTri" element={<QuanTri />}>
+              <Route index element={<Phim />} />
+              <Route path="Phim" element={<Phim />} />
+              <Route path="NguoiDung" element={<NguoiDung />} />
+            </Route>
           </Routes>
           <Footer />
         </BrowserRouter>
