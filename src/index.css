@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slick-prev:before {
+  @apply absolute top-0 left-0 text-5xl;
+}
+.slick-next:before {
+  @apply absolute top-0 left-0 text-5xl;
+}
+
+.slick-dots {
+  bottom: 20px; /* Đặt vị trí */
+}
+
+.slick-dots li {
+  margin: 0 5px; /* Khoảng cách giữa các dots */
+}
+
+.slick-dots li button {
+  @apply w-3 h-3 rounded-3xl bg-white border-none cursor-pointer;
+}
+.slick-dots li.slick-active button {
+  @apply bg-red-600 /* blue-700 */;
+}
+.slick-dots li button:before {
+  content: "";
+}
