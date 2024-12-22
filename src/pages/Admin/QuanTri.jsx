@@ -1,8 +1,9 @@
-// ROUTE QUẢN TRỊ DÙNG CHUNG CHO PHIM VÀ NGƯỜI DÙNG CỦA XUÂN
+// ROUTE QUẢN TRỊ DÙNG CHUNG CHO PHIM VÀ NGƯỜI DÙNG: XUÂN
 
 import { Button } from "flowbite-react";
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import "font-awesome/css/font-awesome.min.css";
 
 const QuanTri = () => {
   return (
@@ -23,7 +24,8 @@ const QuanTri = () => {
               : "block my-7 text-white/60 hover:text-white/85"
           }
         >
-          NGƯỜI DÙNG
+          <i className="fa fa-user"></i>
+          <span className="ml-2">NGƯỜI DÙNG</span>
         </NavLink>
         <NavLink
           to={"/QuanTri/Phim"}
@@ -33,7 +35,8 @@ const QuanTri = () => {
               : "block my-7 text-white/60 hover:text-white/85"
           }
         >
-          PHIM
+          <i className="fa fa-file"></i>
+          <span className="ml-2">PHIM</span>
         </NavLink>
       </div>
       {/*  BLOCK OUTLET */}
