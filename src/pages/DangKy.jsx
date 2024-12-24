@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { NavLink } from "react-router-dom";
 import { VscLockSmall } from "react-icons/vsc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Button, Modal, theme } from "flowbite-react";
+import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaRegCheckCircle } from "react-icons/fa";
 import {
@@ -14,62 +14,82 @@ import {
   TOKEN_CYBERSOFT,
 } from "../Services/constant";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleAlertRegisterSuccess,
+  handleLoading,
+  handleOpenModalAlert,
+  handleValidationErr,
+} from "../Redux/Reducer/registerReducer";
 
 const DangKy = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [openModalAlert, setOpenModalAlert] = useState(false);
-  const [alertDetails, setAlertDetails] = useState({
-    icon: <></>,
-    title: "",
-    buttonDiv: <></>,
-  });
-  const [validationErr, setValidationErr] = useState({
-    isValidationErr: false,
-    message: "",
-  });
+  // const [loading, setLoading] = useState(false);
+  // const [openModalAlert, setOpenModalAlert] = useState(false);
+  // const [alertDetails, setAlertDetails] = useState({
+  //   icon: <></>,
+  //   title: "",
+  //   buttonDiv: <></>,
+  // });
+  // const [validationErr, setValidationErr] = useState({
+  //   isValidationErr: false,
+  //   message: "",
+  // });
 
-  const handleAlert = (isSuccess) => {
-    console.log("isSuccess: ", isSuccess);
-    if (isSuccess) {
-      setAlertDetails({
-        icon: <FaRegCheckCircle className="alert-icon text-green-300 " />,
-        title: "Đăng ký tài khoản thành công !",
-        buttonDiv: (
-          <>
-            <NavLink to="/">
-              <Button color="gray" onClick={() => setOpenModalAlert(false)}>
-                Trang Chủ
-              </Button>
-            </NavLink>
-            <NavLink to="/DangNhap">
-              <Button onClick={() => setOpenModalAlert(false)}>
-                Đăng Nhập
-              </Button>
-            </NavLink>
-          </>
-        ),
-      });
-    } else {
-      setAlertDetails({
-        icon: (
-          <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
-        ),
-        title:
-          "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau!",
-        buttonDiv: (
-          <Button color="failure" onClick={() => setOpenModalAlert(false)}>
-            Close
-          </Button>
-        ),
-      });
-    }
-  };
+  const loading = useSelector((state) => state.registerReducer.loading);
+  const openModalAlert = useSelector(
+    (state) => state.registerReducer.openModalAlert
+  );
+  const alertRegisterSuccess = useSelector(
+    (state) => state.registerReducer.alertRegisterSuccess
+  );
+  const validationErr = useSelector(
+    (state) => state.registerReducer.validationErr
+  );
+
+  const dispatch = useDispatch();
+
+  // const handleAlert = (isSuccess) => {
+  //   console.log("isSuccess: ", isSuccess);
+  //   // if (isSuccess) {
+  //   //   const payload = {
+  //   //     icon: <FaRegCheckCircle className="alert-icon text-green-300 " />,
+  //   //     title: "Đăng ký tài khoản thành công !",
+  //   //     buttonDiv: (
+  //   //       <>
+  //   //         <NavLink to="/">
+  //   //           <Button color="gray">Trang Chủ</Button>
+  //   //         </NavLink>
+  //   //         <NavLink to="/DangNhap">
+  //   //           <Button>Đăng Nhập</Button>
+  //   //         </NavLink>
+  //   //       </>
+  //   //     ),
+  //   //   };
+  //   //   dispatch(handleAlertRegisterSuccess(payload));
+  //   // } else {
+  //   //   const payload = {
+  //   //     icon: (
+  //   //       <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
+  //   //     ),
+  //   //     title:
+  //   //       "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau!",
+  //   //     buttonDiv: (
+  //   //       <Button
+  //   //         color="failure"
+  //   //         onClick={() => dispatch(handleOpenModalAlert(false))}
+  //   //       >
+  //   //         Close
+  //   //       </Button>
+  //   //     ),
+  //   //   };
+  //   //   dispatch(handleAlertRegisterSuccess(payload));
+  //   // }
+  // };
 
   const handleSubmit = (data) => {
-    setLoading(true);
+    dispatch(handleLoading(true));
 
-    // console.log("Đăng ký thành công:", data);
     const { username, password, fullName, email, phone } = data;
     const payload = {
       taiKhoan: username,
@@ -91,25 +111,26 @@ const DangKy = () => {
     })
       .then((response) => {
         console.log("response: ", response);
-        setLoading(false);
-        handleAlert(true);
-        setValidationErr({
-          isValidationErr: false,
-        });
-        setOpenModalAlert(true);
+        dispatch(handleLoading(false));
+        dispatch(handleAlertRegisterSuccess(true));
+        const payload = { isValidationErr: false };
+        dispatch(handleValidationErr(payload));
+
+        dispatch(handleOpenModalAlert(true));
       })
       .catch((error) => {
-        setLoading(false);
+        dispatch(handleLoading(false));
         console.error("error: ", error.response.data.content);
         console.error("error: ", error.status);
         if (error.status === 400) {
-          setValidationErr({
+          const payload = {
             isValidationErr: true,
             message: error.response.data.content,
-          });
+          };
+          dispatch(handleValidationErr(payload));
         } else {
-          handleAlert(false);
-          setOpenModalAlert(true);
+          dispatch(handleAlertRegisterSuccess(false));
+          dispatch(handleOpenModalAlert(true));
         }
       });
   };
@@ -356,15 +377,50 @@ const DangKy = () => {
           show={openModalAlert}
           size="lg"
           className="-ml-3"
-          onClose={() => setOpenModalAlert(false)}
+          onClose={() => dispatch(handleOpenModalAlert(false))}
           popup
         >
           <Modal.Header />
           <Modal.Body>
             <div className="alert_register_info">
-              {alertDetails.icon}
-              <h3 className="title">{alertDetails.title}</h3>
-              <div className="btn">{alertDetails.buttonDiv}</div>
+              {alertRegisterSuccess ? (
+                <FaRegCheckCircle className="alert-icon text-green-300 " />
+              ) : (
+                <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
+              )}
+              <h3 className="title">
+                {alertRegisterSuccess
+                  ? "Đăng ký tài khoản thành công !"
+                  : "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau!"}
+              </h3>
+              <div className="btn">
+                {alertRegisterSuccess ? (
+                  <>
+                    <NavLink to="/">
+                      <Button
+                        color="gray"
+                        onClick={() => dispatch(handleOpenModalAlert(false))}
+                      >
+                        Trang Chủ
+                      </Button>
+                    </NavLink>
+                    <NavLink to="/DangNhap">
+                      <Button
+                        onClick={() => dispatch(handleOpenModalAlert(false))}
+                      >
+                        Đăng Nhập
+                      </Button>
+                    </NavLink>
+                  </>
+                ) : (
+                  <Button
+                    color="failure"
+                    onClick={() => dispatch(handleOpenModalAlert(false))}
+                  >
+                    Close
+                  </Button>
+                )}
+              </div>
             </div>
           </Modal.Body>
         </Modal>
