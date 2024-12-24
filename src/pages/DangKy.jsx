@@ -7,6 +7,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Button, Modal, theme } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaRegCheckCircle } from "react-icons/fa";
+import {
+  DOMAIN,
+  GROUP_ID,
+  REGISTER_API,
+  TOKEN_CYBERSOFT,
+} from "../Services/constant";
+import axios from "axios";
 
 const DangKy = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -17,11 +24,14 @@ const DangKy = () => {
     title: "",
     buttonDiv: <></>,
   });
+  const [validationErr, setValidationErr] = useState({
+    isValidationErr: false,
+    message: "",
+  });
 
-  const handleAlert = (boolean) => {
-    console.log("boolean: ", boolean); // boolean nay dai dien cho call data dc hay ko // khác lỗi validation từ BE
-    if (boolean) {
-      // setAlertDetails() // set noi dung success
+  const handleAlert = (isSuccess) => {
+    console.log("isSuccess: ", isSuccess);
+    if (isSuccess) {
       setAlertDetails({
         icon: <FaRegCheckCircle className="alert-icon text-green-300 " />,
         title: "Đăng ký tài khoản thành công !",
@@ -41,7 +51,6 @@ const DangKy = () => {
         ),
       });
     } else {
-      // setAlertDetails() // set noi dung fail
       setAlertDetails({
         icon: (
           <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
@@ -57,26 +66,52 @@ const DangKy = () => {
     }
   };
 
-  const ValidationBE = (boolean) => {
-    if (boolean) {
-      return (
-        <div className="errMessBE">
-          <HiOutlineExclamationCircle className="text-xl text-red-500" />
-          Noi dung error
-        </div>
-      );
-    }
-  };
-
   const handleSubmit = (data) => {
-    console.log("Đăng ký thành công:", data);
     setLoading(true);
-    // Giả lập kéo data (thay bằng API khi code tính năng)
-    setTimeout(() => {
-      setLoading(false);
-      handleAlert(true); //true false tuy thuoc vao response cua API
-      setOpenModalAlert(true);
-    }, 2000);
+
+    // console.log("Đăng ký thành công:", data);
+    const { username, password, fullName, email, phone } = data;
+    const payload = {
+      taiKhoan: username,
+      matKhau: password,
+      email: email,
+      soDt: phone,
+      maNhom: GROUP_ID,
+      hoTen: fullName,
+    };
+    console.log("payload: ", payload);
+
+    axios({
+      url: DOMAIN + REGISTER_API,
+      method: "POST",
+      headers: {
+        TokenCybersoft: TOKEN_CYBERSOFT,
+      },
+      data: payload,
+    })
+      .then((response) => {
+        console.log("response: ", response);
+        setLoading(false);
+        handleAlert(true);
+        setValidationErr({
+          isValidationErr: false,
+        });
+        setOpenModalAlert(true);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error("error: ", error.response.data.content);
+        console.error("error: ", error.status);
+        if (error.status === 400) {
+          setValidationErr({
+            isValidationErr: true,
+            message: error.response.data.content,
+          });
+        } else {
+          handleAlert(false);
+          setOpenModalAlert(true);
+        }
+      });
   };
 
   // Validation Schema with Yup
@@ -99,7 +134,7 @@ const DangKy = () => {
     email: Yup.string()
       .required("Email không được bỏ trống !")
       .email("Email không hợp lệ !"),
-    soDT: Yup.string().matches(
+    phone: Yup.string().matches(
       /^(0|84|84\s)[0-9]{9}$/,
       "Số điện thoại không hợp lệ !"
     ),
@@ -124,7 +159,7 @@ const DangKy = () => {
               confirmPassword: "",
               fullName: "",
               email: "",
-              soDT: "",
+              phone: "",
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
@@ -261,27 +296,34 @@ const DangKy = () => {
                       />
                     </div>
 
-                    {/* SDT */}
+                    {/* phone */}
                     <div className="form-group">
                       <Field
                         type="text"
-                        name="soDT"
+                        name="phone"
                         className={`form-input w-full p-3 border rounded-md ${
-                          touched.soDT && errors.soDT
+                          touched.phone && errors.phone
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
                         placeholder="Số điện thoại"
                       />
                       <ErrorMessage
-                        name="soDT"
+                        name="phone"
                         component="div"
                         className="errMess"
                       />
                     </div>
 
                     {/* Error validation from BE */}
-                    {ValidationBE(false)}
+                    {validationErr.isValidationErr ? (
+                      <div className="errMessValidation">
+                        <HiOutlineExclamationCircle className="text-xl text-red-500" />
+                        {validationErr.message}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
 
                     {/* Nút đăng ký */}
                     <button

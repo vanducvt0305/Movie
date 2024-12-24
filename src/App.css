@@ -86,6 +86,6 @@
   @apply mx-auto mb-4 h-14 w-14;
 }
 
-.errMessBE {
+.errMessValidation {
   @apply flex text-red-500 text-sm bg-red-100 p-2 rounded-sm gap-1 items-center;
 }
