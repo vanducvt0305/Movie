@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
@@ -9,6 +8,7 @@ import DangNhap from "./pages/DangNhap";
 import DangKy from "./pages/DangKy";
 import { store } from "./Redux/store";
 import { Provider } from "react-redux";
+import "./App.css";
 
 function App() {
   return (

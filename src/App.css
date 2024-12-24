@@ -1,42 +1,91 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ------------------------ LOGIN - REGISTER -------------------------- */
+
+.register,
+.login {
+  background: url(https://demo1.cybersoft.edu.vn/static/media/backapp.b46ef3a1.jpg);
+  @apply min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.register .custom_icon,
+.login .custom_icon {
+  @apply text-xl text-gray-400;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.register .btn-submit,
+.login .btn-submit {
+  @apply mt-2 shadow-md bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-700 focus:outline-none w-full
+  flex items-center justify-center space-x-2;
+}
+.register .navigate,
+.login .navigate {
+  @apply mt-6 text-center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.register_popup,
+.login_popup {
+  @apply bg-white p-8 rounded-md shadow-lg w-full max-w-md;
 }
 
-.card {
-  padding: 2em;
+.register_popup .popup_title,
+.login_popup .popup_title {
+  @apply mb-6 flex flex-col justify-center items-center;
 }
 
-.read-the-docs {
-  color: #888;
-} */
+.register_popup .popup_title .icon,
+.login_popup .popup_title .icon {
+  @apply bg-red-500 w-10 h-10 rounded-full flex justify-center items-center;
+}
+
+.register_popup .popup_title h2,
+.login_popup .popup_title h2 {
+  @apply text-2xl font-semibold text-gray-800 mt-2;
+}
+
+/* Formik */
+.register .errMess,
+.login .errMess {
+  @apply text-red-500 text-sm pl-2;
+}
+
+/* Login */
+.login .rememberAccount {
+  @apply flex items-center pb-3;
+}
+
+.login .rememberAccount p {
+  @apply text-black/70 ml-2;
+}
+.login .MdCheckBox {
+  @apply text-red-500 text-xl;
+}
+
+/* Spinner cho btn submit*/
+.register .spinner,
+.login .spinner {
+  @apply w-5 h-5 border-4 border-t-4 border-gray-200 border-t-yellow-400 rounded-full my-1 animate-spin;
+}
+
+/* Alert */
+.alert_register_info,
+.alert_login_info {
+  @apply text-center py-5;
+}
+
+.alert_register_info .title,
+.alert_login_info .title {
+  @apply mb-5 text-xl font-normal text-gray-500 dark:text-gray-400;
+}
+
+.alert_register_info .btn,
+.alert_login_info .btn {
+  @apply flex justify-center gap-4;
+}
+
+.alert_register_info .alert-icon,
+.alert_login_info .alert-icon {
+  @apply mx-auto mb-4 h-14 w-14;
+}
+
+.errMessBE {
+  @apply flex text-red-500 text-sm bg-red-100 p-2 rounded-sm gap-1 items-center;
+}
