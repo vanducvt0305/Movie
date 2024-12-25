@@ -1,7 +1,10 @@
-// Interceptor dùng chung cho trang Register và Login
+// Interceptor use for Register & Login Page
 
 import axios from "axios";
 import { DOMAIN, TOKEN_CYBERSOFT } from "../constant";
+import { createBrowserHistory } from "history";
+
+const navigateHistory = createBrowserHistory();
 
 export const authHttp = axios.create({
   baseURL: DOMAIN,

@@ -32,12 +32,10 @@ export const handleRegisterAction = (data) => {
     const response = await authHttp.post(REGISTER_API, payload);
     dispatch(handleLoading(false));
     if (response.status === 200) {
-      // Xử lý thành công
       dispatch(handleAlertRegisterSuccess(true));
       dispatch(handleValidationErr(validationPayload(false, "")));
       dispatch(handleOpenModalAlert(true));
     } else {
-      // Xử lý lỗi
       if (response.status === 400) {
         dispatch(
           handleValidationErr(validationPayload(true, response.data.content))

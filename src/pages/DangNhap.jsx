@@ -5,11 +5,38 @@ import { NavLink } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaUserLarge } from "react-icons/fa6";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { Button, Modal } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleLoading,
+  handleOpenModalAlert,
+  handleRememberAccount,
+} from "../Redux/Reducer/loginReducer";
+
+import { handleLoginAction } from "../Redux/Actions/loginAction";
 
 const DangNhap = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [rememberAccount, setRememberAccount] = useState(false);
 
+  const rememberAccount = useSelector(
+    (state) => state.loginReducer.rememberAccount
+  );
+
+  const loading = useSelector((state) => state.loginReducer.loading);
+  const openModalAlert = useSelector(
+    (state) => state.loginReducer.openModalAlert
+  );
+  const alertLoginSuccess = useSelector(
+    (state) => state.loginReducer.alertLoginSuccess
+  );
+  const validationErr = useSelector(
+    (state) => state.loginReducer.validationErr
+  );
+  const loginInfo = useSelector((state) => state.loginReducer.loginInfo);
+
+  const dispatch = useDispatch();
   // Validation Schema with Yup
   const validationSchema = Yup.object({
     username: Yup.string().required("Tài khoản không được bỏ trống !"),
@@ -17,128 +44,180 @@ const DangNhap = () => {
   });
 
   return (
-    <div className="login">
-      <div className="login_popup">
-        <div className="popup_title">
-          <div className="icon">
-            <FaUserLarge className="text-xl text-white" />
+    <>
+      {/* BLOCK MAIN */}
+      <div className="login">
+        <div className="login_popup">
+          <div className="popup_title">
+            <div className="icon">
+              <FaUserLarge className="text-xl text-white" />
+            </div>
+            <h2>Đăng Nhập</h2>
           </div>
-          <h2>Đăng Nhập</h2>
-        </div>
 
-        <Formik
-          initialValues={{
-            username: "",
-            password: "",
-            confirmPassword: "",
-            fullName: "",
-            email: "",
-            soDT: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log("Đăng nhập thành công:", values);
-            // Xử lý đăng nhập ở đây
-          }}
-        >
-          {({ touched, errors }) => {
-            return (
-              <Form>
-                <div className="space-y-4">
-                  {/* Tài khoản */}
-                  <div className="form-group">
-                    <Field
-                      type="text"
-                      name="username"
-                      className={`form-input w-full p-3 border rounded-md ${
-                        touched.username && errors.username
-                          ? "border-red-500"
-                          : "border-gray-300"
-                      }`}
-                      placeholder="Tài khoản *"
-                    />
-                    <ErrorMessage
-                      name="username"
-                      component="div"
-                      className="errMess"
-                    />
-                  </div>
-
-                  {/* Mật khẩu */}
-                  <div className="form-group">
-                    <div className="flex">
+          <Formik
+            initialValues={{
+              username: rememberAccount ? loginInfo.username : "",
+              password: rememberAccount ? loginInfo.password : "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              dispatch(handleLoading(true));
+              dispatch(handleLoginAction(values, rememberAccount));
+            }}
+          >
+            {({ touched, errors }) => {
+              return (
+                <Form>
+                  <div className="space-y-4">
+                    {/* username */}
+                    <div className="form-group">
                       <Field
-                        type={passwordVisible ? "text" : "password"}
-                        name="password"
+                        type="text"
+                        name="username"
                         className={`form-input w-full p-3 border rounded-md ${
-                          touched.password && errors.password
+                          touched.username && errors.username
                             ? "border-red-500"
                             : "border-gray-300"
                         }`}
-                        placeholder="Mật khẩu *"
-                        title="Mật khẩu 8 - 20 ký tự. Có ít nhất 1 ký tự viết thường, 1 ký tự viết hoa và 1 ký tự đặc biệt"
+                        placeholder="Tài khoản *"
                       />
+                      <ErrorMessage
+                        name="username"
+                        component="div"
+                        className="errMess"
+                      />
+                    </div>
+
+                    {/* password */}
+                    <div className="form-group">
+                      <div className="flex">
+                        <Field
+                          type={passwordVisible ? "text" : "password"}
+                          name="password"
+                          className={`form-input w-full p-3 border rounded-md ${
+                            touched.password && errors.password
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
+                          placeholder="Mật khẩu *"
+                          title="Mật khẩu 8 - 20 ký tự. Có ít nhất 1 ký tự viết thường, 1 ký tự viết hoa và 1 ký tự đặc biệt"
+                        />
+                        <button
+                          type="button"
+                          className="-ml-10"
+                          onClick={() => {
+                            setPasswordVisible(!passwordVisible);
+                          }}
+                        >
+                          {passwordVisible ? (
+                            <FaEye className="custom_icon" />
+                          ) : (
+                            <FaEyeSlash className="custom_icon" />
+                          )}
+                        </button>
+                      </div>
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="errMess"
+                      />
+                    </div>
+
+                    {/* rememberAccount */}
+                    <div className="rememberAccount">
                       <button
-                        className="-ml-10"
+                        type="button"
                         onClick={() => {
-                          setPasswordVisible(!passwordVisible);
+                          dispatch(handleRememberAccount(!rememberAccount));
                         }}
                       >
-                        {passwordVisible ? (
-                          <FaEye className="custom_icon" />
+                        {rememberAccount ? (
+                          <MdCheckBox className="MdCheckBox" />
                         ) : (
-                          <FaEyeSlash className="custom_icon" />
+                          <MdCheckBoxOutlineBlank className="custom_icon" />
                         )}
                       </button>
+                      <p>Nhớ tài khoản</p>
                     </div>
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="errMess"
-                    />
-                  </div>
 
-                  {/* Nhớ tài khoản */}
-                  <div className="rememberAccount">
+                    {/* Error validation from BE */}
+                    {validationErr.isValidationErr ? (
+                      <div className="errMessValidation">
+                        <HiOutlineExclamationCircle className="text-xl text-red-500" />
+                        {validationErr.message}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+
+                    {/* btn Sign In */}
                     <button
-                      onClick={() => {
-                        setRememberAccount(!rememberAccount);
-                        // xử lý tiếp code khi nhớ tài khoản
-                      }}
+                      type="submit"
+                      className="btn-submit"
+                      disabled={loading}
                     >
-                      {rememberAccount ? (
-                        <MdCheckBox className="MdCheckBox" />
-                      ) : (
-                        <MdCheckBoxOutlineBlank className="custom_icon" />
-                      )}
+                      {loading ? <div className="spinner"></div> : "ĐĂNG NHẬP"}
                     </button>
-                    <p>Nhớ tài khoản</p>
                   </div>
+                </Form>
+              );
+            }}
+          </Formik>
 
-                  {/* Nút đăng ký */}
-                  <button type="submit" className="btn-submit">
-                    ĐĂNG NHẬP
-                  </button>
-                </div>
-              </Form>
-            );
-          }}
-        </Formik>
-
-        {/* Chuyển sang trang Đăng ký */}
-        <div className="navigate">
-          <p>
-            Bạn chưa có tài khoản?
-            <NavLink
-              to="/DangKy"
-              className="text-blue-600 hover:underline ml-1"
-            >
-              Đăng ký
-            </NavLink>
-          </p>
+          {/* navigate to Sign Up */}
+          <div className="navigate">
+            <p>
+              Bạn chưa có tài khoản?
+              <NavLink
+                to="/DangKy"
+                className="text-blue-600 hover:underline ml-1"
+              >
+                Đăng ký
+              </NavLink>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      {/* BLOCK ALERT */}
+      <div className="alert_login">
+        <Modal
+          show={openModalAlert}
+          size="lg"
+          className="-ml-3"
+          onClose={() => dispatch(handleOpenModalAlert(false))}
+          popup
+        >
+          <Modal.Header />
+          <Modal.Body>
+            <div className="alert_login_info">
+              {alertLoginSuccess ? (
+                <FaRegCheckCircle className="alert-icon text-green-300 " />
+              ) : (
+                <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
+              )}
+              <h3 className="title">
+                {alertLoginSuccess
+                  ? "Đăng nhập thành công ! Bạn sẽ được chuyển đến trang chủ"
+                  : "Đã có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại sau!"}
+              </h3>
+              <div className="btn">
+                {alertLoginSuccess ? (
+                  <></>
+                ) : (
+                  <Button
+                    color="failure"
+                    onClick={() => dispatch(handleOpenModalAlert(false))}
+                  >
+                    Close
+                  </Button>
+                )}
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </div>
+    </>
   );
 };
 

@@ -85,7 +85,7 @@ const DangKy = () => {
               return (
                 <Form>
                   <div className="space-y-4">
-                    {/* Tài khoản */}
+                    {/* username */}
                     <div className="form-group">
                       <Field
                         type="text"
@@ -104,7 +104,7 @@ const DangKy = () => {
                       />
                     </div>
 
-                    {/* Mật khẩu */}
+                    {/* password */}
                     <div className="form-group">
                       <div className="flex">
                         <Field
@@ -139,7 +139,7 @@ const DangKy = () => {
                       />
                     </div>
 
-                    {/* Nhập lại mật khẩu */}
+                    {/* confirmPassword */}
                     <div className="form-group">
                       <div className="flex">
                         <Field
@@ -173,7 +173,7 @@ const DangKy = () => {
                       />
                     </div>
 
-                    {/* Họ tên */}
+                    {/* fullName */}
                     <div className="form-group">
                       <Field
                         type="text"
@@ -240,7 +240,7 @@ const DangKy = () => {
                       <></>
                     )}
 
-                    {/* Nút đăng ký */}
+                    {/* Button Sign Up */}
                     <button
                       type="submit"
                       className="btn-submit"
@@ -254,7 +254,7 @@ const DangKy = () => {
             }}
           </Formik>
 
-          {/* Chuyển sang trang Đăng nhập */}
+          {/* navigate to Login */}
           <div className="navigate">
             <p>
               Bạn đã có tài khoản?{" "}

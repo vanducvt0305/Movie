@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   loading: false,
   openModalAlert: false,
-  alertRegisterSuccess: false,
+  alertRegisterSuccess: false, // use to set Details Alert Info (status 200, and else (!== 400))
   validationErr: {
     isValidationErr: false,
     message: "",
-  },
+  }, // error status 400
 };
 
 const registerReducer = createSlice({
