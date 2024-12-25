@@ -170,7 +170,7 @@ const DangNhap = () => {
             <p>
               Bạn chưa có tài khoản?
               <NavLink
-                to="/DangKy"
+                to="/dangky"
                 className="text-blue-600 hover:underline ml-1"
               >
                 Đăng ký

@@ -258,7 +258,7 @@ const DangKy = () => {
           <div className="navigate">
             <p>
               Bạn đã có tài khoản?{" "}
-              <NavLink to="/DangNhap" className="text-blue-600 hover:underline">
+              <NavLink to="/dangnhap" className="text-blue-600 hover:underline">
                 Đăng nhập
               </NavLink>
             </p>
@@ -298,7 +298,7 @@ const DangKy = () => {
                         Trang Chủ
                       </Button>
                     </NavLink>
-                    <NavLink to="/DangNhap">
+                    <NavLink to="/dangnhap">
                       <Button
                         onClick={() => dispatch(handleOpenModalAlert(false))}
                       >

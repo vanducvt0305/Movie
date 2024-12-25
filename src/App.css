@@ -3,7 +3,7 @@
 .register,
 .login {
   background: url(https://demo1.cybersoft.edu.vn/static/media/backapp.b46ef3a1.jpg);
-  @apply min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat;
+  @apply min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-40 pb-24;
 }
 
 .register .custom_icon,
