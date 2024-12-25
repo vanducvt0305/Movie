@@ -47,10 +47,9 @@ export const handleLoginAction = (values, rememberAccount) => {
       localStorage.setItem(REMEMBER_ACCOUNT, JSON.stringify(rememberAccount));
       localStorage.setItem(USER_NAME, values.username);
       localStorage.setItem(PASSWORD, values.password);
-      localStorage.setItem(ACCESS_TOKEN, response.data.content.accessToken)
-      // navigate - fix it 
+      localStorage.setItem(ACCESS_TOKEN, response.data.content.accessToken);
       setTimeout(() => {
-        window.location.replace("/");
+        window.location.href = "/";
       }, 2000);
     } else {
       if (response.status === 404) {

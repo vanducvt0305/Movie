@@ -2,9 +2,6 @@
 
 import axios from "axios";
 import { DOMAIN, TOKEN_CYBERSOFT } from "../constant";
-import { createBrowserHistory } from "history";
-
-const navigateHistory = createBrowserHistory();
 
 export const authHttp = axios.create({
   baseURL: DOMAIN,
