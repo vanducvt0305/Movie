@@ -7,35 +7,15 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Button, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaRegCheckCircle } from "react-icons/fa";
-import {
-  DOMAIN,
-  GROUP_ID,
-  REGISTER_API,
-  TOKEN_CYBERSOFT,
-} from "../Services/constant";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  handleAlertRegisterSuccess,
   handleLoading,
   handleOpenModalAlert,
-  handleValidationErr,
 } from "../Redux/Reducer/registerReducer";
+import { handleRegisterAction } from "../Redux/Actions/registerAction";
 
 const DangKy = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  // const [loading, setLoading] = useState(false);
-  // const [openModalAlert, setOpenModalAlert] = useState(false);
-  // const [alertDetails, setAlertDetails] = useState({
-  //   icon: <></>,
-  //   title: "",
-  //   buttonDiv: <></>,
-  // });
-  // const [validationErr, setValidationErr] = useState({
-  //   isValidationErr: false,
-  //   message: "",
-  // });
-
   const loading = useSelector((state) => state.registerReducer.loading);
   const openModalAlert = useSelector(
     (state) => state.registerReducer.openModalAlert
@@ -46,94 +26,7 @@ const DangKy = () => {
   const validationErr = useSelector(
     (state) => state.registerReducer.validationErr
   );
-
   const dispatch = useDispatch();
-
-  // const handleAlert = (isSuccess) => {
-  //   console.log("isSuccess: ", isSuccess);
-  //   // if (isSuccess) {
-  //   //   const payload = {
-  //   //     icon: <FaRegCheckCircle className="alert-icon text-green-300 " />,
-  //   //     title: "Đăng ký tài khoản thành công !",
-  //   //     buttonDiv: (
-  //   //       <>
-  //   //         <NavLink to="/">
-  //   //           <Button color="gray">Trang Chủ</Button>
-  //   //         </NavLink>
-  //   //         <NavLink to="/DangNhap">
-  //   //           <Button>Đăng Nhập</Button>
-  //   //         </NavLink>
-  //   //       </>
-  //   //     ),
-  //   //   };
-  //   //   dispatch(handleAlertRegisterSuccess(payload));
-  //   // } else {
-  //   //   const payload = {
-  //   //     icon: (
-  //   //       <HiOutlineExclamationCircle className="alert-icon text-gray-300" />
-  //   //     ),
-  //   //     title:
-  //   //       "Đã có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại sau!",
-  //   //     buttonDiv: (
-  //   //       <Button
-  //   //         color="failure"
-  //   //         onClick={() => dispatch(handleOpenModalAlert(false))}
-  //   //       >
-  //   //         Close
-  //   //       </Button>
-  //   //     ),
-  //   //   };
-  //   //   dispatch(handleAlertRegisterSuccess(payload));
-  //   // }
-  // };
-
-  const handleSubmit = (data) => {
-    dispatch(handleLoading(true));
-
-    const { username, password, fullName, email, phone } = data;
-    const payload = {
-      taiKhoan: username,
-      matKhau: password,
-      email: email,
-      soDt: phone,
-      maNhom: GROUP_ID,
-      hoTen: fullName,
-    };
-    console.log("payload: ", payload);
-
-    axios({
-      url: DOMAIN + REGISTER_API,
-      method: "POST",
-      headers: {
-        TokenCybersoft: TOKEN_CYBERSOFT,
-      },
-      data: payload,
-    })
-      .then((response) => {
-        console.log("response: ", response);
-        dispatch(handleLoading(false));
-        dispatch(handleAlertRegisterSuccess(true));
-        const payload = { isValidationErr: false };
-        dispatch(handleValidationErr(payload));
-
-        dispatch(handleOpenModalAlert(true));
-      })
-      .catch((error) => {
-        dispatch(handleLoading(false));
-        console.error("error: ", error.response.data.content);
-        console.error("error: ", error.status);
-        if (error.status === 400) {
-          const payload = {
-            isValidationErr: true,
-            message: error.response.data.content,
-          };
-          dispatch(handleValidationErr(payload));
-        } else {
-          dispatch(handleAlertRegisterSuccess(false));
-          dispatch(handleOpenModalAlert(true));
-        }
-      });
-  };
 
   // Validation Schema with Yup
   const validationSchema = Yup.object({
@@ -184,7 +77,8 @@ const DangKy = () => {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              handleSubmit(values); // Hàm xử lý đăng ký
+              dispatch(handleLoading(true));
+              dispatch(handleRegisterAction(values));
             }}
           >
             {({ touched, errors }) => {
