@@ -91,6 +91,10 @@
 }
 
 /* --------------------------------- ADMIN -------------------------------------- */
-.dashboard .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.dashboard .admin-logo:hover {
+  filter: drop-shadow(0 0 2em #c1c4ffaa);
+}
+
+.admin-back-home a:hover i {
+  @apply -translate-x-2;
 }

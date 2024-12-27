@@ -1,6 +1,12 @@
 import React from "react";
+import { useMatch } from "react-router-dom";
 
 const Footer = () => {
+  const notShowFooter = useMatch("/quantri/*");
+  if (notShowFooter) {
+    return <></>;
+  }
+
   return (
     <div className="bg-[#212121] text-white">
       <div className="xl:grid grid-cols-3 container mx-auto w-3/5 mb-20 hidden ">

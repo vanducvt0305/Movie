@@ -21,7 +21,7 @@ const preparePayloadForRegister = (data) => {
     matKhau: password,
     email: email,
     soDt: phone,
-    maNhom: GROUP_ID,
+    // maNhom: GROUP_ID,
     hoTen: fullName,
   };
 };
