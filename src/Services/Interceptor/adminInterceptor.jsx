@@ -18,11 +18,8 @@ adminHttp.interceptors.request.use((request) => {
 
 // response
 adminHttp.interceptors.response.use((response) => {
-  console.log("response: ", response);
   return response;
 }),
   (error) => {
-    console.error("error: ", error.response.data.content);
-    console.error("status: ", error.response.status);
     return error.response;
   };

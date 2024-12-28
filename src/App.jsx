@@ -12,6 +12,7 @@ import "./App.css";
 import QuanTri from "./pages/Admin/QuanTri";
 import Phim from "./pages/Admin/Phim";
 import NguoiDung from "./pages/Admin/NguoiDung";
+import Page404 from "./pages/Page404";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
               <Route path="phim" element={<Phim />} />
               <Route path="nguoidung" element={<NguoiDung />} />
             </Route>
+
+            <Route path="*" element={<Page404 />} />
           </Routes>
           <Footer />
         </BrowserRouter>
