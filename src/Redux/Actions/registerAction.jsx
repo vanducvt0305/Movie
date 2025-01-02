@@ -28,6 +28,7 @@ const preparePayloadForRegister = (data) => {
 
 export const handleRegisterAction = (data) => {
   const payload = preparePayloadForRegister(data);
+  console.log("payload for register: ", payload);
   return async (dispatch, getState) => {
     const response = await authHttp.post(REGISTER_API, payload);
     dispatch(handleLoading(false));

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   ACCESS_TOKEN,
   LOGIN_API,

@@ -102,7 +102,7 @@
 }
 
 .dashboard .admin-logo {
-  @apply flex justify-start items-center gap-4 font-bold py-8;
+  @apply flex flex-wrap justify-start items-center gap-4 font-bold py-8;
 }
 
 .dashboard .admin-logo:hover {
@@ -159,7 +159,7 @@
 }
 
 .admin-info .content {
-  @apply absolute -right-72 -bottom-24 min-w-72 bg-slate-200/80 backdrop-blur-sm 
+  @apply absolute z-50 -right-72 -bottom-24 min-w-72 bg-slate-200/80 backdrop-blur-sm 
   p-4 text-left font-semibold rounded-md text-black/80 capitalize 
   hidden;
 }
@@ -208,4 +208,78 @@
 
 .notFound .navigate {
   @apply mt-6 inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-md hover:bg-indigo-700 transition;
+}
+
+/* ----------------------------- ADMIN USER ---------------------------------- */
+
+/* Phần chung */
+.admin-user {
+  @apply p-4;
+}
+
+.admin-user .title {
+  @apply capitalize font-semibold text-2xl;
+}
+
+.admin-user .btn-add-user {
+  @apply my-4 capitalize rounded-sm;
+}
+
+.admin-user .search-user {
+  @apply my-3 text-lg;
+}
+
+.admin-user .table-users {
+  @apply overflow-x-auto mt-5;
+}
+
+.table-users .user-info-row {
+  @apply bg-white dark:border-gray-700 dark:bg-gray-800;
+}
+
+.table-users .user-info-row .index {
+  @apply whitespace-nowrap font-medium text-gray-900 dark:text-white;
+}
+
+.table-users .btn-edit-user {
+  @apply font-medium text-blue-500 hover:underline dark:text-cyan-500;
+}
+
+.table-users .btn-delete-user {
+  @apply font-medium text-red-500 hover:underline dark:text-cyan-500 ml-2;
+}
+
+/* EditUser */
+
+.admin-edit-user {
+  @apply p-10;
+}
+
+.admin-edit-user .title {
+  @apply text-2xl font-semibold text-gray-800 mb-10;
+}
+
+.form-edit {
+  @apply space-y-10;
+}
+
+.form-edit .input {
+  @apply grid lg:grid-cols-2 gap-y-8 gap-x-6;
+}
+
+.form-edit .input .errMess {
+  @apply text-red-500 text-sm pl-2;
+}
+
+.form-edit .input .custom_icon {
+  @apply text-xl text-gray-400;
+}
+
+.form-edit .btn-submit {
+  @apply mt-2 shadow-md bg-indigo-500 text-white py-2 px-6 rounded-md hover:bg-indigo-700 focus:outline-none w-full
+  flex items-center justify-center space-x-2;
+}
+
+.form-edit .btn-submit .spinner {
+  @apply w-5 h-5 border-4 border-t-4 border-gray-200 border-t-yellow-400 rounded-full my-1 animate-spin;
 }
