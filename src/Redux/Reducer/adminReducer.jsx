@@ -20,6 +20,17 @@ const initialState = {
   navigateBackToAdminUser: false,
   isLoading: false,
   typeOfUser: [],
+  userPagination: {
+    total: 0,
+    defaultPageSize: 10,
+    showSizeChanger: true,
+    pageSizeOptions: ["10", "20", "50"],
+    showTotal: (total) => handleShowTotal(total),
+  },
+};
+
+export const handleShowTotal = (total) => {
+  return `Tổng cộng ${total} người dùng`;
 };
 
 const adminReducer = createSlice({
@@ -56,6 +67,12 @@ const adminReducer = createSlice({
     handleLoading(state, action) {
       state.isLoading = action.payload;
     },
+    handleUserPagination(state, action) {
+      state.userPagination = {
+        ...state.userPagination,
+        ...action.payload,
+      };
+    },
   },
 });
 
@@ -68,6 +85,7 @@ export const {
   handleSelectedUserInfo,
   handleNavigateBackToAdminUser,
   handleLoading,
+  handleUserPagination,
 } = adminReducer.actions;
 
 export default adminReducer.reducer;

@@ -7,15 +7,15 @@ import {
 } from "@ant-design/icons";
 import { Input } from "antd";
 import { NavLink } from "react-router-dom";
-import { handleSelectedUserInfo } from "../../Redux/Reducer/adminReducer";
+import {
+  handleSelectedUserInfo,
+  handleShowTotal,
+  handleUserPagination,
+} from "../../Redux/Reducer/adminReducer";
 import { Button, Table, Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, getArrayUsers } from "../../Redux/Actions/adminAction";
 import { GROUP_ID } from "../../Services/constant";
-
-const handleShowTotal = (total) => {
-  return `Tổng cộng ${total} người dùng`;
-};
 
 const NguoiDung = () => {
   const dispatch = useDispatch();
@@ -28,13 +28,8 @@ const NguoiDung = () => {
     dispatch(getArrayUsers(GROUP_ID, value));
   };
 
-  const [pagination, setPagination] = useState({
-    total: arrayUsers.length,
-    defaultPageSize: 10,
-    showSizeChanger: true,
-    pageSizeOptions: ["10", "20", "50"],
-    showTotal: (total) => handleShowTotal(total),
-  });
+  const pagination = useSelector((state) => state.adminReducer.userPagination);
+
   const [filteredInfo, setFilteredInfo] = useState({});
   const handleChange = (pagination, filters, sorter, extra) => {
     setFilteredInfo(filters);
@@ -43,7 +38,7 @@ const NguoiDung = () => {
       pagination.total = newTotal;
       pagination.showTotal = () => handleShowTotal(newTotal);
     }
-    setPagination(pagination);
+    dispatch(handleUserPagination(pagination));
   };
 
   const columns = [

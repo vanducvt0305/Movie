@@ -18,6 +18,8 @@ import {
   handleGetTypeOfUser,
   handleLoading,
   handleNavigateBackToAdminUser,
+  handleShowTotal,
+  handleUserPagination,
   verifyAdmin,
 } from "../Reducer/adminReducer";
 
@@ -54,6 +56,11 @@ export const getArrayUsers = (groupId, keyword) => {
     const response = await adminUserHttp.get(finalUrl);
     if (response.status === 200) {
       dispatch(handleArrUser(response.data.content));
+      const pagination = {
+        total: response.data.content.length,
+        showTotal: (total) => handleShowTotal(total),
+      };
+      dispatch(handleUserPagination(pagination));
     } else {
       alert(response.data.content);
       return;
