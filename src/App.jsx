@@ -14,7 +14,6 @@ import Phim from "./pages/Admin/Phim";
 import NguoiDung from "./pages/Admin/NguoiDung";
 import Page404 from "./pages/Page404";
 import ChinhSuaNguoiDung from "./pages/Admin/ChinhSuaNguoiDung";
-import TestTable from "./pages/Admin/TestTable";
 
 function App() {
   return (
@@ -40,7 +39,6 @@ function App() {
                 path="chinhsuanguoidung/:taikhoan"
                 element={<ChinhSuaNguoiDung />}
               />
-              <Route path="table" element={<TestTable />} />
             </Route>
 
             <Route path="*" element={<Page404 />} />

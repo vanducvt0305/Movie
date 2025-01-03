@@ -230,15 +230,7 @@
 }
 
 .admin-user .table-users {
-  @apply overflow-x-auto mt-5;
-}
-
-.table-users .user-info-row {
-  @apply bg-white dark:border-gray-700 dark:bg-gray-800;
-}
-
-.table-users .user-info-row .index {
-  @apply whitespace-nowrap font-medium text-gray-900 dark:text-white;
+  @apply overflow-x-auto mt-8;
 }
 
 .table-users .btn-edit-user {
