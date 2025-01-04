@@ -1,42 +1,278 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ------------------------ LOGIN - REGISTER -------------------------- */
+
+.register,
+.login {
+  background: url(https://demo1.cybersoft.edu.vn/static/media/backapp.b46ef3a1.jpg);
+  @apply min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-40 pb-24;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.register .custom_icon,
+.login .custom_icon {
+  @apply text-xl text-gray-400;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.register .btn-submit,
+.login .btn-submit {
+  @apply mt-2 shadow-md bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-700 focus:outline-none w-full
+  flex items-center justify-center space-x-2;
+}
+.register .navigate,
+.login .navigate {
+  @apply mt-6 text-center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.register_popup,
+.login_popup {
+  @apply bg-white p-8 rounded-md shadow-lg w-full max-w-md;
 }
 
-.card {
-  padding: 2em;
+.register_popup .popup_title,
+.login_popup .popup_title {
+  @apply mb-6 flex flex-col justify-center items-center;
 }
 
-.read-the-docs {
-  color: #888;
-} */
+.register_popup .popup_title .icon,
+.login_popup .popup_title .icon {
+  @apply bg-red-500 w-10 h-10 rounded-full flex justify-center items-center;
+}
+
+.register_popup .popup_title h2,
+.login_popup .popup_title h2 {
+  @apply text-2xl font-semibold text-gray-800 mt-2;
+}
+
+/* Formik */
+.register .errMess,
+.login .errMess {
+  @apply text-red-500 text-sm pl-2;
+}
+
+/* Login */
+.login .rememberAccount {
+  @apply flex items-center pb-3;
+}
+
+.login .rememberAccount p {
+  @apply text-black/70 ml-2;
+}
+.login .MdCheckBox {
+  @apply text-red-500 text-xl;
+}
+
+/* Spinner cho btn submit*/
+.register .spinner,
+.login .spinner {
+  @apply w-5 h-5 border-4 border-t-4 border-gray-200 border-t-yellow-400 rounded-full my-1 animate-spin;
+}
+
+/* Alert */
+.alert_register_info,
+.alert_login_info {
+  @apply text-center py-5;
+}
+
+.alert_register_info .title,
+.alert_login_info .title {
+  @apply mb-5 text-xl font-normal text-gray-500 dark:text-gray-400;
+}
+
+.alert_register_info .btn,
+.alert_login_info .btn {
+  @apply flex justify-center gap-4;
+}
+
+.alert_register_info .alert-icon,
+.alert_login_info .alert-icon {
+  @apply mx-auto mb-4 h-14 w-14;
+}
+
+.errMessValidation {
+  @apply flex text-red-500 text-sm bg-red-100 p-2 rounded-sm gap-1 items-center;
+}
+
+/* --------------------------------- ADMIN -------------------------------------- */
+.admin {
+  @apply flex min-h-screen;
+}
+
+/* dashboard */
+
+.admin .dashboard {
+  @apply w-1/5 px-8 py-2 bg-custom-dark relative;
+}
+
+.dashboard .admin-logo {
+  @apply flex flex-wrap justify-start items-center gap-4 font-bold py-8;
+}
+
+.dashboard .admin-logo:hover {
+  filter: drop-shadow(0 0 2em #c1c4ffaa);
+}
+
+.admin-logo .group-name {
+  @apply text-xl text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-100;
+}
+
+.admin-menu .link-active {
+  @apply block my-7 text-white;
+}
+
+.admin-menu .link-noActive {
+  @apply block my-7 text-white/60 hover:text-white/85;
+}
+
+.admin-back-home {
+  @apply absolute bottom-0 w-full left-0 bg-slate-800 text-center text-white;
+}
+
+.admin-back-home a {
+  @apply hover:cursor-pointer block p-5 transition-all;
+}
+
+.admin-back-home a:hover i {
+  @apply -translate-x-2;
+}
+
+/* Outlet */
+.admin .outlet {
+  @apply w-4/5 bg-gray-100 pb-8;
+}
+
+.admin .outlet .top-outlet {
+  @apply bg-white text-right py-2 px-4 flex justify-between items-center;
+}
+
+.admin .outlet .top-outlet .admin-info {
+  @apply p-2 text-black/80 relative transition-all duration-300;
+}
+
+.top-outlet .adminName {
+  @apply text-indigo-500 font-semibold ml-1 uppercase;
+}
+
+.admin .btn-logOut {
+  @apply text-red-600 hover:text-red-500 rounded-md hover:bg-gray-100 p-2;
+}
+
+.admin .outlet .main-outlet {
+  @apply bg-white m-3 rounded-sm min-h-screen;
+}
+
+.admin-info .content {
+  @apply absolute z-50 -right-72 -bottom-24 min-w-72 bg-slate-200/80 backdrop-blur-sm 
+  p-4 text-left font-semibold rounded-md text-black/80 capitalize 
+  hidden;
+}
+.admin-info:hover .content {
+  @apply block;
+}
+
+.admin-info .content span {
+  @apply font-thin ml-1;
+}
+
+/* MODAL */
+
+.modal-logout-info,
+.alert-logout-info {
+  @apply text-center py-5;
+}
+
+.modal-logout-info .alert-icon,
+.alert-logout-info .alert-icon {
+  @apply mx-auto mb-4 h-14 w-14;
+}
+
+.modal-logout-info .title,
+.alert-logout-info .title {
+  @apply mb-5 text-xl font-normal text-gray-500;
+}
+
+.modal-logout-info .btn,
+.alert-logout-info .btn {
+  @apply flex justify-center gap-4;
+}
+/* --------------------------------- PAGE 404 -------------------------------------- */
+
+.notFound {
+  @apply flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center px-4;
+}
+
+.notFound .title {
+  @apply text-9xl scale-150 font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+}
+
+.notFound .content {
+  @apply text-2xl text-gray-500 mt-10 tracking-wider;
+}
+
+.notFound .navigate {
+  @apply mt-6 inline-block px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-md hover:bg-indigo-700 transition;
+}
+
+/* ----------------------------- ADMIN USER ---------------------------------- */
+
+/* Phần chung */
+.admin-user {
+  @apply p-4;
+}
+
+.admin-user .title {
+  @apply capitalize font-semibold text-2xl;
+}
+
+.admin-user .btn-add-user {
+  @apply my-4 capitalize rounded-sm;
+}
+
+.admin-user .search-user {
+  @apply my-3 text-lg;
+}
+
+.admin-user .table-users {
+  @apply overflow-x-auto mt-8;
+}
+
+.table-users .btn-edit-user {
+  @apply font-medium text-blue-500 hover:underline dark:text-cyan-500;
+}
+
+.table-users .btn-delete-user {
+  @apply font-medium text-red-500 hover:underline dark:text-cyan-500 ml-2;
+}
+
+/* EditUser */
+
+.admin-edit-user {
+  @apply p-10;
+}
+
+.admin-edit-user .title {
+  @apply text-2xl font-semibold text-gray-800 mb-10;
+}
+
+.form-edit {
+  @apply space-y-10;
+}
+
+.form-edit .input {
+  @apply grid lg:grid-cols-2 gap-y-8 gap-x-6;
+}
+
+.form-edit .input .errMess {
+  @apply text-red-500 text-sm pl-2;
+}
+
+.form-edit .input .custom_icon {
+  @apply text-xl text-gray-400;
+}
+
+.form-edit .btn-submit {
+  @apply mt-2 shadow-md bg-indigo-500 text-white py-2 px-6 rounded-md hover:bg-indigo-700 focus:outline-none w-full
+  flex items-center justify-center space-x-2;
+}
+
+.form-edit .btn-submit .spinner {
+  @apply w-5 h-5 border-4 border-t-4 border-gray-200 border-t-yellow-400 rounded-full my-1 animate-spin;
+}
+/* --------------------------------------------------------------- */

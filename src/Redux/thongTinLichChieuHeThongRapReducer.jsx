@@ -10,7 +10,6 @@ const thongTinLichChieuHeThongRapReducer = createSlice({
   reducers: {
     layThongTinLichChieuHeThongRapAction: (state, action) => {
       state.thongTinLichChieuHeThongRap = action.payload;
-      console.log(JSON.stringify(action.payload));
     },
   },
 });

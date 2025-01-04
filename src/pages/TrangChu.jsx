@@ -62,7 +62,6 @@ const TrangChu = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.content);
         dispatch(layThongTinLichChieuHeThongRapAction(res.data.content));
       })
       .catch((err) => {
@@ -91,7 +90,10 @@ const TrangChu = () => {
         <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 my-5">
           {listPhim?.map((item) => {
             return (
-              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div
+                key={item}
+                className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+              >
                 <a href="#">
                   <img
                     className="rounded-t-lg w-full h-[260px] object-cover"
@@ -141,7 +143,6 @@ const TrangChu = () => {
                   key={index}
                   className="text-start px-4 py-2 w-full"
                   onClick={() => {
-                    console.log(item.danhSachPhim);
                     dispatch(layDanhSachPhimAction(item.danhSachPhim));
                   }}
                 >
