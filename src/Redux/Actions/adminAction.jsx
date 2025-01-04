@@ -32,6 +32,8 @@ export const verifyAdminAction = () => {
       if (userType === "QuanTri") {
         dispatch(verifyAdmin(true));
         dispatch(handleAdminInfo(response.data.content));
+        console.log("response.data.content: ", response.data.content);
+
         return;
       }
     } else {

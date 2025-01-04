@@ -3,14 +3,17 @@ import {
   LOGIN_API,
   PASSWORD,
   REMEMBER_ACCOUNT,
+  USER_INFO_API,
   USER_NAME,
 } from "../../Services/constant";
+import { adminHttp } from "../../Services/Interceptor/adminInterceptor";
 import { authHttp } from "../../Services/Interceptor/authInterceptor";
 import {
   handleAlertLoginSuccess,
   handleLoading,
   handleLoginInfo,
   handleOpenModalAlert,
+  handleUserInfo,
   handleValidationErr,
 } from "../Reducer/loginReducer";
 
@@ -59,6 +62,19 @@ export const handleLoginAction = (values, rememberAccount) => {
         dispatch(handleAlertLoginSuccess(false));
         dispatch(handleOpenModalAlert(true));
       }
+    }
+  };
+};
+
+export const getUserInfo = () => {
+  return async (dispatch, getState) => {
+    adminHttp;
+    USER_INFO_API;
+    const response = await adminHttp.post(USER_INFO_API);
+    if (response.status === 200) {
+      dispatch(handleUserInfo(response.data.content));
+    } else {
+      alert(response.data.content);
     }
   };
 };

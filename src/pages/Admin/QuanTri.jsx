@@ -80,7 +80,7 @@ const QuanTri = () => {
                 <p>
                   SDT:
                   <span>
-                    {adminInfo.adminGroup ? adminInfo.adminGroup : "..."}
+                    {adminInfo.adminPhone ? adminInfo.adminPhone : "..."}
                   </span>
                 </p>
                 <p>
