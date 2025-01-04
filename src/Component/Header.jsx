@@ -1,8 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useMatch } from "react-router-dom";
 import React, { useState } from "react";
 import { Drawer, Button, List, ListItem } from "@mui/material";
 
 const Header = () => {
+  const notShowHeader = useMatch("/quantri/*");
+  if (notShowHeader) {
+    return <></>;
+  }
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = () => {

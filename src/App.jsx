@@ -9,6 +9,11 @@ import DangKy from "./pages/DangKy";
 import { store } from "./Redux/store";
 import { Provider } from "react-redux";
 import "./App.css";
+import QuanTri from "./pages/Admin/QuanTri";
+import Phim from "./pages/Admin/Phim";
+import NguoiDung from "./pages/Admin/NguoiDung";
+import Page404 from "./pages/Page404";
+import ChinhSuaNguoiDung from "./pages/Admin/ChinhSuaNguoiDung";
 
 function App() {
   return (
@@ -23,6 +28,20 @@ function App() {
             <Route path="chitietphongve" element={<ChiTietPhongVe />} />
             <Route path="dangnhap" element={<DangNhap />} />
             <Route path="dangky" element={<DangKy />} />
+
+            {/* Admin */}
+            <Route path="quantri" element={<QuanTri />}>
+              <Route index element={<Phim />} />
+              <Route path="phim" element={<Phim />} />
+              <Route path="nguoidung" element={<NguoiDung />} />
+              <Route path="chinhsuanguoidung" element={<ChinhSuaNguoiDung />} />
+              <Route
+                path="chinhsuanguoidung/:taikhoan"
+                element={<ChinhSuaNguoiDung />}
+              />
+            </Route>
+
+            <Route path="*" element={<Page404 />} />
           </Routes>
           <Footer />
         </BrowserRouter>

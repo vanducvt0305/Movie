@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   ACCESS_TOKEN,
   LOGIN_API,
@@ -50,7 +49,7 @@ export const handleLoginAction = (values, rememberAccount) => {
       localStorage.setItem(ACCESS_TOKEN, response.data.content.accessToken);
       setTimeout(() => {
         window.location.href = "/";
-      }, 2000);
+      }, 1000);
     } else {
       if (response.status === 404) {
         dispatch(
