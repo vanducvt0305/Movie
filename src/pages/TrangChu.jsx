@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-// import Slider from "react-slick";
 import SimpleSlider from "../Component/SimpleSlider";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { layThongTinLichChieuHeThongRapAction } from "../Redux/thongTinLichChieuHeThongRapReducer";
-import { layThongTinCumRapAction } from "../Redux/thongTinCumRapReducer";
-import { layDanhSachPhimAction } from "../Redux/danhSachPhimReducer";
 import { format } from "date-fns";
+import {
+  layThongTinLstCumRapAction,
+  layThongTinThuongHieuRapAction,
+  renderNgayGioChieuPhimChiTietAction,
+  renderThongTinCumRapAction,
+} from "../Redux/thongTinThuongHieuRapReducer";
 
 const TrangChu = () => {
   const [listPhim, setListPhim] = useState([]);
-  const [heThongRap, setHeThongRap] = useState([]);
-  const { danhSachPhim } = useSelector((state) => state.danhSachPhimReducer);
   const dispatch = useDispatch();
-  const thongTinLichChieuHeThongRap = useSelector(
-    (state) =>
-      state.thongTinLichChieuHeThongRapReducer.thongTinLichChieuHeThongRap
-  );
-  const thongTinCumRap = useSelector(
-    (state) => state.thongTinCumRapReducer.thongTinCumRap
-  );
+  // const {} = useSelector(state=>state.thongTinThuongHieuRapReducer)
+  const {
+    thongTinThuongHieuRap,
+    thongTinLstCumRap,
+    thongTinCumRap,
+    ngayGioChieuPhimChiTiet,
+  } = useSelector((state) => state.thongTinThuongHieuRapReducer);
   const layDanhSachPhim = () => {
     axios({
       url: "https://movienew.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01",
@@ -30,7 +30,10 @@ const TrangChu = () => {
       },
     })
       .then((res) => {
-        setListPhim(res.data.content);
+        const newListFilm = res.data.content.filter((item, index) => {
+          return index < 12;
+        });
+        setListPhim(newListFilm);
       })
       .catch((err) => {
         console.log(err);
@@ -46,7 +49,8 @@ const TrangChu = () => {
       },
     })
       .then((res) => {
-        setHeThongRap(res.data.content);
+        // console.log(res.data.content);
+        dispatch(layThongTinThuongHieuRapAction(res.data.content));
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +66,8 @@ const TrangChu = () => {
       },
     })
       .then((res) => {
-        dispatch(layThongTinLichChieuHeThongRapAction(res.data.content));
+        console.log(res.data.content);
+        dispatch(layThongTinLstCumRapAction(res.data.content));
       })
       .catch((err) => {
         console.log(err);
@@ -78,6 +83,7 @@ const TrangChu = () => {
       </div>
     );
   };
+
   useEffect(() => {
     layDanhSachPhim();
     layThongTinHeThongRap();
@@ -117,16 +123,14 @@ const TrangChu = () => {
         <div className="flex border border-solid border-orange-600 h-screen overflow-hidden">
           <div className="w-[10%]">
             <div className="flex flex-col items-center">
-              {heThongRap?.map((item, index) => {
+              {thongTinThuongHieuRap?.map((item, index) => {
                 return (
                   <button
                     key={index}
                     className="my-5"
                     onClick={() => {
                       dispatch(
-                        layThongTinCumRapAction(
-                          thongTinLichChieuHeThongRap[index]
-                        )
+                        renderThongTinCumRapAction(thongTinLstCumRap[index])
                       );
                     }}
                   >
@@ -143,7 +147,13 @@ const TrangChu = () => {
                   key={index}
                   className="text-start px-4 py-2 w-full"
                   onClick={() => {
-                    dispatch(layDanhSachPhimAction(item.danhSachPhim));
+                    console.log(thongTinCumRap);
+                    console.log(thongTinCumRap.lstCumRap[index].danhSachPhim);
+                    dispatch(
+                      renderNgayGioChieuPhimChiTietAction(
+                        thongTinCumRap.lstCumRap[index].danhSachPhim
+                      )
+                    );
                   }}
                 >
                   <div className="text-green-700 text-sm">
@@ -159,7 +169,7 @@ const TrangChu = () => {
             })}
           </div>
           <div className="w-[60%] overflow-y-scroll">
-            {danhSachPhim?.map((item, index) => {
+            {ngayGioChieuPhimChiTiet?.map((item, index) => {
               return (
                 <div key={index} className="flex p-4">
                   <div className="w-[120px] h-[126px] pr-4">
