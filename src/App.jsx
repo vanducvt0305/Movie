@@ -13,6 +13,8 @@ import QuanTri from "./pages/Admin/QuanTri";
 import Phim from "./pages/Admin/Phim";
 import NguoiDung from "./pages/Admin/NguoiDung";
 import Page404 from "./pages/Page404";
+import { AddNew } from "./pages/Admin/AddNew";
+import { Edit } from "./pages/Admin/Edit";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
             <Route path="quantri" element={<QuanTri />}>
               <Route index element={<Phim />} />
               <Route path="phim" element={<Phim />} />
+              <Route path="addnew" element={<AddNew/>}/>
+              <Route path="editphim/:id" element={<Edit/>}/>
               <Route path="nguoidung" element={<NguoiDung />} />
             </Route>
 
