@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Cascader,
@@ -10,27 +10,39 @@ import {
     Switch,
     TreeSelect,
 } from "antd";
+import { useParams } from "react-router-dom"; 
 import { useFormik } from "formik";
 import moment from "moment";
-import { useDispatch } from 'react-redux';
-import { themPhimUploadHinhAction } from "../../Redux/Actions/QuanLyPhimAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { layDanhSachPhimAction, themPhimUploadHinhAction, layThongTinPhimAction } from "../../Redux/Actions/QuanLyPhimAction";
 import { GROUP_ID } from "../../Services/constant";
-export const Edit = () => {
+export const Edit = (props) => {
     const [componentSize, setComponentSize] = useState("default");
+    const {thongTinPhim} = useSelector(state=>state.QuanLyPhimReducer);
+    console.log('thongTinPhim: ', thongTinPhim);
     const [imgSrc, setImgSrc] = useState('');
     const dispatch = useDispatch();
 
+    const { id } = useParams(); // Lấy id từ URL
+
+    // call api
+    useEffect(() => {
+        dispatch(layThongTinPhimAction(id)); // Gọi API với id
+    }, [dispatch, id]);
+
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues:{
-            tenPhim: "",
-            trailer: "",
-            moTa: "",
-            ngayKhoiChieu: "",
-            dangChieu: false,
-            sapChieu: false,
-            hot: false,
-            danhGia: 0,
-            hinhAnh: {}
+            tenPhim: thongTinPhim?.tenPhim,
+            trailer: thongTinPhim.trailer,
+            moTa: thongTinPhim.moTa,
+            ngayKhoiChieu: thongTinPhim.ngayKhoiChieu,
+            dangChieu: thongTinPhim.dangChieu,
+            sapChieu: thongTinPhim.sapChieu,
+            hot: thongTinPhim.hot,
+            danhGia: thongTinPhim.danhGia,
+            hinhAnh: null,
+            maNhom: 'GP02'
         },
         onSubmit: (values) =>{
             console.log("values", values);
@@ -120,42 +132,45 @@ export const Edit = () => {
 
                     {/* Tên phim */}
                     <Form.Item label="Tên Phim">
-                        <Input name="tenPhim" onChange={formik.handleChange}/>
+                        <Input name="tenPhim" onChange={formik.handleChange} value={formik.values.tenPhim}/>
                     </Form.Item>
 
                     {/* Trailer */}
                     <Form.Item label="Trailer">
-                        <Input name="trailer" onChange={formik.handleChange}/>
+                        <Input name="trailer" onChange={formik.handleChange} value={formik.values.trailer}/>
                     </Form.Item>
 
                     {/* Mô tả */}
                     <Form.Item label="Mô tả">
-                        <Input name="moTa" onChange={formik.handleChange}/>
+                        <Input name="moTa" onChange={formik.handleChange}
+                        value={formik.values.moTa}/>
                     </Form.Item>
 
                     {/* Ngày khởi chiếu */}
                     <Form.Item label="Ngày khởi chiếu">
-                        <DatePicker format={"DD/MM/YYYY"} onChange={handleChangeDatePicker}/>
+                        <DatePicker format={"DD/MM/YYYY"} onChange={handleChangeDatePicker}
+                        value={formik.values.ngayKhoiChieu}/>
                     </Form.Item>
 
                     {/* Đang chiếu */}
                     <Form.Item label="Đang chiếu" valuePropName="checked">
-                        <Switch name="dangChieu" onChange={handleChangeSwitch('dangChieu')}/>
+                        <Switch name="dangChieu" onChange={handleChangeSwitch('dangChieu')}
+                    checked={formik.values.dangChieu}/>
                     </Form.Item>
 
                     {/* Sắp chiếu */}
                     <Form.Item label="Sắp chiếu" valuePropName="checked">
-                        <Switch name="sapChieu" onChange={handleChangeSwitch('sapChieu')}/>
+                        <Switch name="sapChieu" onChange={handleChangeSwitch('sapChieu')} checked={formik.values.sapChieu}/>
                     </Form.Item>
 
                     {/* Hot */}
                     <Form.Item label="Hot" valuePropName="checked">
-                        <Switch name="hot" onChange={handleChangeSwitch('hot')}/>
+                        <Switch name="hot" onChange={handleChangeSwitch('hot')} checked={formik.values.hot}/>
                     </Form.Item>
 
                     {/* Số sao */}
                     <Form.Item label="Số sao">
-                        <InputNumber onChange={handleChangeInputNumber('danhGia')} min={1} max={10}/>
+                        <InputNumber onChange={handleChangeInputNumber('danhGia')} min={1} max={10} value={formik.values.danhGia}/>
                     </Form.Item>
 
                     {/* Số sao */}

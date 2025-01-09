@@ -1,4 +1,4 @@
-import { SET_DANH_SACH_PHIM } from "../Actions/type/QuanLyPhimType";
+import { SET_DANH_SACH_PHIM, SET_THONG_TIN_PHIM } from "../Actions/type/QuanLyPhimType";
 
 const stateDefault = {
     arrFilm: [
@@ -296,6 +296,10 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
               arrFilm: action.arrFilm,
               arrFilmDefault: [...action.arrFilm], 
           };
+      }
+      case SET_THONG_TIN_PHIM: {
+        state.thongTinPhim = action.thongTinPhim;
+        return{...state}
       }
       default:
           return state;

@@ -1,6 +1,6 @@
 import { quanLyPhimService } from "../../Services/quanLyPhimService";
 
-import { SET_DANH_SACH_PHIM } from "../Actions/type/QuanLyPhimType";
+import { SET_DANH_SACH_PHIM, SET_THONG_TIN_PHIM } from "../Actions/type/QuanLyPhimType";
 
 export const layDanhSachPhimAction = () => {
     return async (dispatch) => {
@@ -31,3 +31,18 @@ export const themPhimUploadHinhAction = (formData) => {
     }
 }
 
+export const layThongTinPhimAction = (maPhim) => {
+    return async (dispatch) => {
+        try {
+            let result = await quanLyPhimService.layThongTinPhim(maPhim);
+                console.log("result: ", result);
+            dispatch({
+                type: SET_THONG_TIN_PHIM,
+                thongTinPhim: result.data.content,
+            });
+        } catch (error) {
+            // Sử dụng biến error thay vì ErrorList
+            console.log(error.response?.data);
+        }
+    };
+};
