@@ -9,6 +9,7 @@ import {
   renderNgayGioChieuPhimChiTietAction,
   renderThongTinCumRapAction,
 } from "../Redux/thongTinThuongHieuRapReducer";
+import { NavLink } from "react-router-dom";
 
 const TrangChu = () => {
   const [listPhim, setListPhim] = useState([]);
@@ -31,7 +32,8 @@ const TrangChu = () => {
     })
       .then((res) => {
         const newListFilm = res.data.content.filter((item, index) => {
-          return index < 12;
+          console.log(item);
+          return index < 8 && index % 2 === 0;
         });
         setListPhim(newListFilm);
       })
@@ -66,13 +68,13 @@ const TrangChu = () => {
       },
     })
       .then((res) => {
-        console.log(res.data.content);
         dispatch(layThongTinLstCumRapAction(res.data.content));
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   const tachNgayGio = (ngayChieuGioChieu) => {
     const [datePart, timePart] = ngayChieuGioChieu.split("~");
     return (
@@ -93,33 +95,33 @@ const TrangChu = () => {
     <div className="mt-16">
       <SimpleSlider />
       <div className="container mx-auto">
-        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 my-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-3 gap-4 my-5 mx-auto ">
           {listPhim?.map((item) => {
             return (
               <div
                 key={item}
                 className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                <a href="#">
+                <NavLink to={`/chiTietPhim/${item.maPhim}`}>
                   <img
-                    className="rounded-t-lg w-full h-[260px] object-cover"
+                    className="rounded-t-lg w-full h-[400px] object-cover"
                     src={item.hinhAnh}
                     alt=""
                   />
-                </a>
+                </NavLink>
                 <div className="p-5">
-                  <a href="#">
+                  <NavLink to={`/chiTietPhim/${item.maPhim}`}>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {item.tenPhim}
                     </h5>
-                  </a>
+                  </NavLink>
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto hidden xl:block">
         <div className="flex border border-solid border-orange-600 h-screen overflow-hidden">
           <div className="w-[10%]">
             <div className="flex flex-col items-center">
@@ -186,7 +188,9 @@ const TrangChu = () => {
                       <div className="grid grid-cols-3 gap-4">
                         {item.lstLichChieuTheoPhim?.map((lichChieu, index) => {
                           return (
-                            <a href="/">
+                            <NavLink
+                              to={`/chitietphongve/${lichChieu.maLichChieu}`}
+                            >
                               <div
                                 key={index}
                                 className="border border-solid boder-[#9e9e9e] p-2 text-center align-middle bg-[#FAFAFA] rounded-md hover:text-lg transition-all duration-500 h-[40px] hover:h-[46px]"
@@ -198,7 +202,7 @@ const TrangChu = () => {
                                   )
                                 )}
                               </div>
-                            </a>
+                            </NavLink>
                           );
                         })}
                       </div>

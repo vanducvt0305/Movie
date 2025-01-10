@@ -40,6 +40,12 @@ function App() {
                 element={<ChinhSuaNguoiDung />}
               />
             </Route>
+            <Route path="chitietphim">
+              <Route path=":id" element={<ChiTietPhim />} />
+            </Route>
+            <Route path="chitietphongve">
+              <Route path=":maLichChieu" element={<ChiTietPhongVe />} />
+            </Route>
 
             <Route path="*" element={<Page404 />} />
           </Routes>

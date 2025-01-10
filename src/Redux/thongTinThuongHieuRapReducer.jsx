@@ -20,6 +20,7 @@ const thongTinThuongHieuRapReducer = createSlice({
       state.ngayGioChieuPhimChiTiet =
         action.payload[0].lstCumRap[0].danhSachPhim;
     },
+
     renderThongTinCumRapAction: (state, action) => {
       state.thongTinCumRap = action.payload;
     },
