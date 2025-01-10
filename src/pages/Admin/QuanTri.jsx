@@ -60,8 +60,8 @@ const QuanTri = () => {
                 props.isActive ? "link-active" : "link-noActive"
               }
             >
-              <i className="fa fa-film"></i>
-              <span className="ml-2">PHIM</span>
+              <i class="fa fa-tv"></i>
+              <span className="ml-2">SHOWTIME</span>
             </NavLink>
           </div>
           <div className="admin-back-home">

@@ -298,8 +298,11 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
           };
       }
       case SET_THONG_TIN_PHIM: {
-        state.thongTinPhim = action.thongTinPhim;
-        return{...state}
+        // state.thongTinPhim = action.thongTinPhim;
+        return {
+          ...state,
+          thongTinPhim: action.thongTinPhim
+        }
       }
       default:
           return state;

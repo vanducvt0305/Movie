@@ -4,20 +4,22 @@ import React, { Fragment, useEffect } from "react";
 import { Button, Table } from 'antd';
 import { Navigate, NavLink } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-import { AudioOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { AudioOutlined, DeleteOutlined, EditOutlined, CalendarOutlined } from '@ant-design/icons';
 import { Input, Space } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
-import { layDanhSachPhimAction } from "../../Redux/Actions/QuanLyPhimAction";
+import { layDanhSachPhimAction, xoaPhimAction } from "../../Redux/Actions/QuanLyPhimAction";
 const { Search } = Input;
 
 const Phim = () => {
   const navigate = useNavigate(); // Khai báo useNavigate bên ngoài return
 
 
-  const {arrFilm} = useSelector(state => state.QuanLyPhimReducer)
+  const {arrFilmDefault} = useSelector(state => state.QuanLyPhimReducer)
   
   const dispatch = useDispatch();
-  console.log("arrFilmDefault", arrFilm)
+
+  console.log("arrFilmDefault", arrFilmDefault)
+
   useEffect(() => {
     dispatch(layDanhSachPhimAction());
   }, [dispatch]);
@@ -56,7 +58,7 @@ const Phim = () => {
     {
       title: 'Mô tả',
       dataIndex: 'moTa',
-      with: '25%',
+      with: '20%',
       sortDirections: ['descend', 'ascend'],
       render: (text, film) => { return <Fragment>
           {film.moTa.length > 50 ? film.moTa.substr() + '...' : film.moTa}
@@ -66,20 +68,29 @@ const Phim = () => {
     {
       title: 'Hành động',
       dataIndex: 'moTa',
-      with: '25%',
+      with: '30%',
       render: (text, film) => { return <Fragment>
-          <NavLink className="bg-black text-white mr-2" to={`/quantri/editPhim/${film.maPhim}`}>
+          <NavLink className=" text-blue-500 hover:text-blue-800 mr-2" to={`/quantri/editPhim/${film.maPhim}`}>
             <EditOutlined/>
           </NavLink>
-          <NavLink className="bg-red-800 text-white mr-2 " to="/">
+          <span style={{cursor:'pointer'}} className=" text-red-800 mr-2 " to="/" onClick={() => {
+            // Gọi action xoá
+            if(window.confirm('Bạn có chắc muốn xoá phim '+ film.tenPhim)){
+              // Nếu đúng thì tiến hành gọi action tại đây
+              dispatch(xoaPhimAction(film.maPhim));
+            }
+          }}>
             <DeleteOutlined/>
+          </span>
+          <NavLink className=" text-green-500 hover:text-green-800 mr-2" to={`/quantri/showtime/${film.maPhim}`}>
+            <CalendarOutlined/>
           </NavLink>
         </Fragment>
       }
     },
   ];
 
-  const data = arrFilm;
+  const data = arrFilmDefault;
   const suffix = (
     <AudioOutlined
       style={{
@@ -88,7 +99,11 @@ const Phim = () => {
       }}
     />
   );
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const onSearch = value =>{
+    console.log(value);
+    // gọi api lấy danh sách phim
+    dispatch(layDanhSachPhimAction(value));
+  };
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
@@ -103,6 +118,7 @@ const Phim = () => {
     {/* Thanh tìm kiếm */}
     <Search className="my-5"
     placeholder="input search text" 
+
     onSearch={onSearch} 
     enterButton />
     <Table className="" columns={columns} dataSource={data} onChange={onChange} />

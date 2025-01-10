@@ -14,25 +14,28 @@ import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachPhimAction, themPhimUploadHinhAction, layThongTinPhimAction } from "../../Redux/Actions/QuanLyPhimAction";
+import { layDanhSachPhimAction, themPhimUploadHinhAction, layThongTinPhimAction, capNhatPhimUploadAction } from "../../Redux/Actions/QuanLyPhimAction";
 import { GROUP_ID } from "../../Services/constant";
 export const Edit = (props) => {
     const [componentSize, setComponentSize] = useState("default");
-    const {thongTinPhim} = useSelector(state=>state.QuanLyPhimReducer);
+    const { thongTinPhim } = useSelector(state => state.QuanLyPhimReducer);
     console.log('thongTinPhim: ', thongTinPhim);
     const [imgSrc, setImgSrc] = useState('');
     const dispatch = useDispatch();
 
     const { id } = useParams(); // Lấy id từ URL
 
+    // console.log("maphim: ", id)
+
     // call api
     useEffect(() => {
         dispatch(layThongTinPhimAction(id)); // Gọi API với id
-    }, []);
+    }, [id]);
 
     const formik = useFormik({
         enableReinitialize: true,
         initialValues:{
+            maPhim: thongTinPhim.maPhim,
             tenPhim: thongTinPhim?.tenPhim,
             trailer: thongTinPhim.trailer,
             moTa: thongTinPhim.moTa,
@@ -47,18 +50,20 @@ export const Edit = (props) => {
         onSubmit: (values) =>{
             console.log("values", values);
             values.maNhom = GROUP_ID;
-            //Tao đối tượng formData
+            //Tao đối tượng formData => Đưa giá trị values từ formik vào formData
             let formData = new FormData();
             for (let key in values) {
                 if(key !== 'hinhAnh'){
                     formData.append(key, values[key]);
                 }
                 else {
-                    formData.append('File', values.hinhAnh, values.hinhAnh.name)
+                    if(values.hinhAnh !== null){
+                        formData.append('File', values.hinhAnh, values.hinhAnh.name);
+                    }
                 }
                 }
                 // Gọi api gửi các giá trị formdata về backend xử lý (sử dụng useDispatch)
-                dispatch(themPhimUploadHinhAction(formData));
+                dispatch(capNhatPhimUploadAction(formData));
             // console.log('formData', formData);
         }
     });

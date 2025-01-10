@@ -15,6 +15,7 @@ import NguoiDung from "./pages/Admin/NguoiDung";
 import Page404 from "./pages/Page404";
 import { AddNew } from "./pages/Admin/AddNew";
 import { Edit } from "./pages/Admin/Edit";
+import ShowTimes from "./pages/Admin/ShowTimes";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="phim" element={<Phim />} />
               <Route path="addnew" element={<AddNew/>}/>
               <Route path="editphim/:id" element={<Edit/>}/>
+              <Route path="showtime/:id" element={<ShowTimes/>}/>
               <Route path="nguoidung" element={<NguoiDung />} />
             </Route>
 
