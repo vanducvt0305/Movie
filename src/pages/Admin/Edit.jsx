@@ -28,7 +28,7 @@ export const Edit = (props) => {
     // call api
     useEffect(() => {
         dispatch(layThongTinPhimAction(id)); // Gọi API với id
-    }, [dispatch, id]);
+    }, []);
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -51,10 +51,10 @@ export const Edit = (props) => {
             let formData = new FormData();
             for (let key in values) {
                 if(key !== 'hinhAnh'){
-                    formData.appeend(key, values[key]);
+                    formData.append(key, values[key]);
                 }
                 else {
-                    formData.appeend('File', values.hinhAnh, values.hinhAnh.name)
+                    formData.append('File', values.hinhAnh, values.hinhAnh.name)
                 }
                 }
                 // Gọi api gửi các giá trị formdata về backend xử lý (sử dụng useDispatch)
@@ -64,7 +64,7 @@ export const Edit = (props) => {
     });
     // Khai báo cho hàm "Ngày khởi chiếu"
     const handleChangeDatePicker = (value) => {
-        let ngayKhoiChieu = moment(value).format("DD/MM/YYYY");
+        let ngayKhoiChieu = moment(value);
         formik.setFieldValue('ngayKhoiChieu', ngayKhoiChieu);
     };
     // Hàm Switch
@@ -149,7 +149,7 @@ export const Edit = (props) => {
                     {/* Ngày khởi chiếu */}
                     <Form.Item label="Ngày khởi chiếu">
                         <DatePicker format={"DD/MM/YYYY"} onChange={handleChangeDatePicker}
-                        value={formik.values.ngayKhoiChieu}/>
+                        value={moment(formik.values.ngayKhoiChieu)}/>
                     </Form.Item>
 
                     {/* Đang chiếu */}
@@ -181,7 +181,7 @@ export const Edit = (props) => {
                     </Form.Item>
                     {/* Button */}
                     <Form.Item label="Tác vụ">
-                        <button type="submit" className="bg-blue-800 text-white p-2">Thêm phim</button>
+                        <button type="submit" className="bg-blue-800 text-white p-2">Cập nhật</button>
                     </Form.Item>
                 </Form>
             </div>
