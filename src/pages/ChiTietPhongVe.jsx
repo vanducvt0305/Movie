@@ -64,7 +64,7 @@ const ChiTietPhongVe = () => {
             <div className="text-3xl text-center mb-6">Thông Tin Đặt Vé</div>
             <div className="border border-solid border-black p-4 rounded-lg">
               <div className="text-xl text-orange-500">
-                {thongTinPhim.tenPhim.toUpperCase()}
+                {thongTinPhim.tenPhim}
               </div>
               <div className="text-xl">Địa chỉ: {thongTinPhim.diaChi}</div>
               <div className="text-xl">Giờ chiếu: {thongTinPhim.gioChieu}</div>
@@ -113,40 +113,6 @@ const ChiTietPhongVe = () => {
           </div>
         </div>
       </div>
-      {/* <div className="container mx-auto my-5">
-        <div className="flex justify-between mx-10 text-xl">
-          <div className="flex items-center">
-            <div className="w-[40px] h-[40px] bg-[#E9E9E9] rounded-md mr-4"></div>
-            <div>Ghế Thường</div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[40px] h-[40px] bg-[#FFA500] rounded-md mr-4"></div>
-            <div>Ghế Vip</div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[40px] h-[40px] bg-[#767676] rounded-md mr-4"></div>
-            <div>Ghế Đã Đặt</div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[40px] h-[40px] bg-[#49DE80] rounded-md mr-4"></div>
-            <div>Ghế Đang Đặt</div>
-          </div>
-        </div>
-      </div>
-      <div className="container mx-auto">
-        <table className="min-w-full table-auto border-collapse border border-gray-200 rounded-md overflow-hidden">
-          <thead>
-            <tr className="bg-[#FFA500]">
-              <th className="px-4 py-2">Số Ghế</th>
-              <th className="px-4 py-2">Giá</th>
-              <th className="px-4 py-2">Hành Động</th>
-            </tr>
-          </thead>
-          <tbody>
-
-          </tbody>
-        </table>
-      </div> */}
     </div>
   );
 };
