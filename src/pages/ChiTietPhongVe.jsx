@@ -41,7 +41,7 @@ const ChiTietPhongVe = () => {
             <div className="grid grid-cols-[repeat(6,_1fr)] sm:grid-cols-[repeat(8,_1fr)] md:grid-cols-[repeat(10,_1fr)] lg:grid-cols-[repeat(12,_1fr)]  xl:grid-cols-[repeat(15,_1fr)] gap-4 mb-4">
               {danhSachGhe?.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} className="flex justify-center">
                     <button
                       className={`w-[40px] h-[40px] rounded-md ${
                         item.daDat
@@ -51,7 +51,7 @@ const ChiTietPhongVe = () => {
                           : "bg-[#FFA500]"
                       } ${
                         item.daDat ? "hover:bg-[#767676]" : "hover:bg-[#F5F5F5]"
-                      } transition-all duration-500`}
+                      } transition-all duration-500 text-center `}
                     >
                       {item.daDat ? "X" : item.stt}
                     </button>
