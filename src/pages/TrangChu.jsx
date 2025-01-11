@@ -14,7 +14,7 @@ import { NavLink } from "react-router-dom";
 const TrangChu = () => {
   const [listPhim, setListPhim] = useState([]);
   const dispatch = useDispatch();
-  // const {} = useSelector(state=>state.thongTinThuongHieuRapReducer)
+  const [thuongHieu, setThuongHieu] = useState(0);
   const {
     thongTinThuongHieuRap,
     thongTinLstCumRap,
@@ -74,7 +74,9 @@ const TrangChu = () => {
         console.log(err);
       });
   };
-
+  const setThuongHieuRap = (index) => {
+    setThuongHieu(index);
+  };
   const tachNgayGio = (ngayChieuGioChieu) => {
     const [datePart, timePart] = ngayChieuGioChieu.split("~");
     return (
@@ -121,7 +123,7 @@ const TrangChu = () => {
           })}
         </div>
       </div>
-      <div className="container mx-auto hidden xl:block">
+      <div className="container mx-auto ">
         <div className="flex border border-solid border-orange-600 h-screen overflow-hidden">
           <div className="w-[10%]">
             <div className="flex flex-col items-center">
@@ -129,12 +131,17 @@ const TrangChu = () => {
                 return (
                   <button
                     key={index}
-                    className="my-5"
                     onClick={() => {
+                      setThuongHieuRap(index);
                       dispatch(
                         renderThongTinCumRapAction(thongTinLstCumRap[index])
                       );
                     }}
+                    className={`my-5 bg-white opacity-35 ${
+                      thuongHieu === index
+                        ? "border-r-4 border-solid border-red-500 transition-all duration-500 opacity-100"
+                        : ""
+                    }`}
                   >
                     <img src={item.logo} alt="" width={50} />
                   </button>
@@ -173,19 +180,21 @@ const TrangChu = () => {
           <div className="w-[60%] overflow-y-scroll">
             {ngayGioChieuPhimChiTiet?.map((item, index) => {
               return (
-                <div key={index} className="flex p-4">
-                  <div className="w-[120px] h-[126px] pr-4">
+                <div key={index} className="flex p-4 flex-wrap md:flex-nowrap">
+                  <div className="w-[120px] h-[126px] pr-4 mb-4 md:mb-0">
                     <img src={item.hinhAnh} alt="" className="w-full h-full" />
                   </div>
                   <div className="w-full">
                     <div className="flex mb-4">
-                      <div className="bg-red-500 text-white p-1 rounded-md mr-2">
-                        {item.maPhim}
+                      <div>
+                        <p className="bg-red-500 text-white p-1 rounded-md mr-2 h-[32px]">
+                          {item.maPhim}
+                        </p>
                       </div>
                       <p className="font-medium text-lg">{item.tenPhim}</p>
                     </div>
                     <div>
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid xl:grid-cols-3 lg:grid-cols-2  grid-cols-1 gap-4">
                         {item.lstLichChieuTheoPhim?.map((lichChieu, index) => {
                           return (
                             <NavLink
@@ -193,7 +202,7 @@ const TrangChu = () => {
                             >
                               <div
                                 key={index}
-                                className="border border-solid boder-[#9e9e9e] p-2 text-center align-middle bg-[#FAFAFA] rounded-md hover:text-lg transition-all duration-500 h-[40px] hover:h-[46px]"
+                                className="border border-solid boder-[#9e9e9e] p-2 text-center align-middle bg-[#FAFAFA] rounded-md hover:text-lg transition-all duration-500 h-[40px] hover:h-[46px] w-[200px]"
                               >
                                 {tachNgayGio(
                                   format(

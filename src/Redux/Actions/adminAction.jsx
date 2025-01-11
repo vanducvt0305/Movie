@@ -36,8 +36,6 @@ export const verifyAdminAction = () => {
 
         return;
       }
-    } else {
-      window.location.href = "/";
     }
   };
 };
