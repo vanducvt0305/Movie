@@ -54,15 +54,6 @@ const QuanTri = () => {
               <i className="fa fa-film"></i>
               <span className="ml-2">PHIM</span>
             </NavLink>
-            <NavLink
-              to={"/quantri/phim"}
-              className={(props) =>
-                props.isActive ? "link-active" : "link-noActive"
-              }
-            >
-              <i class="fa fa-tv"></i>
-              <span className="ml-2">SHOWTIME</span>
-            </NavLink>
           </div>
           <div className="admin-back-home">
             <a href="/">
