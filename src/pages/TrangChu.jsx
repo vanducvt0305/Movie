@@ -153,7 +153,7 @@ const TrangChu = () => {
               })}
             </div>
           </div>
-          <div className="w-[30%] ">
+          <div className="w-[30%] overflow-y-scroll">
             {thongTinCumRap.lstCumRap?.map((item, index) => {
               return (
                 <button
