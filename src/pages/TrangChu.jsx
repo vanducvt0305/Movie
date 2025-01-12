@@ -101,7 +101,7 @@ const TrangChu = () => {
     <div className="mt-16">
       <SimpleSlider />
       <div className="container mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-3 gap-4 my-5 mx-auto ">
+        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-3 gap-4 my-5 mx-auto justify-items-center">
           {listPhim?.map((item) => {
             return (
               <div
@@ -110,7 +110,7 @@ const TrangChu = () => {
               >
                 <NavLink to={`/chiTietPhim/${item.maPhim}`}>
                   <img
-                    className="rounded-t-lg w-full h-[400px] object-cover"
+                    className="rounded-t-lg w-[350px] h-[400px] object-cover"
                     src={item.hinhAnh}
                     alt=""
                   />

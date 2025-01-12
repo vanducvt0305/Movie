@@ -34,7 +34,6 @@ const ChiTietPhongVe = () => {
   return (
     <div className="mt-20 ">
       <div className="flex">
-        {/* <div className="xl:w-1/12 w-0"></div> */}
         <div className="flex container mx-auto justify-between xl:w-11/12 w-full flex-wrap">
           <div className="xl:w-8/12 w-full">
             <div className="text-3xl text-center mb-6">Đặt Ghế Xem Phim</div>
@@ -60,9 +59,9 @@ const ChiTietPhongVe = () => {
               })}
             </div>
           </div>
-          <div className="xl:w-4/12 w-full pl-5">
+          <div className="xl:w-4/12 w-full p-4 xl:pl-5">
             <div className="text-3xl text-center mb-6">Thông Tin Đặt Vé</div>
-            <div className="border border-solid border-black p-4 rounded-lg">
+            <div className="border border-solid border-black p-4 rounded-lg mx-auto">
               <div className="text-xl text-orange-500">
                 {thongTinPhim.tenPhim}
               </div>
