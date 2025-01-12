@@ -15,6 +15,7 @@ const TrangChu = () => {
   const [listPhim, setListPhim] = useState([]);
   const dispatch = useDispatch();
   const [thuongHieu, setThuongHieu] = useState(0);
+  const [cumRap, setCumRap] = useState(0);
   const {
     thongTinThuongHieuRap,
     thongTinLstCumRap,
@@ -77,6 +78,9 @@ const TrangChu = () => {
   const setThuongHieuRap = (index) => {
     setThuongHieu(index);
   };
+  const setCumRapButton = (index) => {
+    setCumRap(index);
+  };
   const tachNgayGio = (ngayChieuGioChieu) => {
     const [datePart, timePart] = ngayChieuGioChieu.split("~");
     return (
@@ -137,13 +141,13 @@ const TrangChu = () => {
                         renderThongTinCumRapAction(thongTinLstCumRap[index])
                       );
                     }}
-                    className={`my-5 bg-white opacity-35 ${
+                    className={`my-5 bg-white  ${
                       thuongHieu === index
-                        ? "border-r-4 border-solid border-red-500 transition-all duration-500 opacity-100"
-                        : ""
+                        ? `border-r-8 border-solid  border-red-500 transition-all duration-500 opacity-100`
+                        : "opacity-25"
                     }`}
                   >
-                    <img src={item.logo} alt="" width={50} />
+                    <img src={item.logo} alt="" width={50} className="mr-4" />
                   </button>
                 );
               })}
@@ -154,16 +158,19 @@ const TrangChu = () => {
               return (
                 <button
                   key={index}
-                  className="text-start px-4 py-2 w-full"
                   onClick={() => {
-                    console.log(thongTinCumRap);
-                    console.log(thongTinCumRap.lstCumRap[index].danhSachPhim);
+                    setCumRapButton(index);
                     dispatch(
                       renderNgayGioChieuPhimChiTietAction(
                         thongTinCumRap.lstCumRap[index].danhSachPhim
                       )
                     );
                   }}
+                  className={`text-start px-4 my-1 w-full ${
+                    cumRap === index
+                      ? `border-r-8 border-solid  border-red-500 transition-all duration-500 opacity-100 `
+                      : "opacity-35"
+                  }`}
                 >
                   <div className="text-green-700 text-sm">
                     {item.tenCumRap.toUpperCase()}
@@ -172,7 +179,7 @@ const TrangChu = () => {
                     {item.diaChi.toUpperCase()}
                   </div>
                   <div className="text-red-500 text-xs my-2">{`[chi tiết]`}</div>
-                  <hr className="w-[90%] mx-auto my-2" />
+                  <hr className="w-[90%] mx-auto " />
                 </button>
               );
             })}
