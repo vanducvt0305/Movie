@@ -81,15 +81,15 @@ const ChiTietPhim = () => {
           </div>
           <div className="flex py-4 text-white">
             <div className="w-2/10">
-              <div className="bg-white w-[300px]">
+              <div className="bg-white w-[150px] sm:w-[300px] h-[220px] sm:h-[450px]">
                 <img
                   src={thongTinLichChieuPhim.hinhAnh}
                   alt=""
-                  className="w-[90%] mx-auto h-[400px] object-cover py-3"
+                  className="w-[90%] mx-auto h-[220px] sm:h-[400px] object-cover py-3"
                 />
               </div>
             </div>
-            <div className="px-8 w-8/10">
+            <div className="px-4 md:px-8 w-8/10">
               <div>{thongTinLichChieuPhim.tenPhim?.toUpperCase()}</div>
               <div>{thongTinLichChieuPhim.moTa}</div>
               <div>Mã phim: {id}</div>
@@ -105,14 +105,13 @@ const ChiTietPhim = () => {
       <div className="bg-white">
         <div className="container mx-auto mb-5">
           <div className="flex">
-            <div className="w-3/12 pt-6 border-r-[1px] border-gray-300">
+            <div className="w-5/12 md:w-3/12 pt-6 border-r-[1px] border-gray-300">
               {thongTinLichChieuPhim.heThongRapChieu?.map((item, index) => {
                 return (
-                  <div key={index} className="mx-auto my-5">
+                  <div key={index} className="mx-auto my-5 ">
                     <button
                       className="flex items-center w-full"
                       onClick={() => {
-                        // console.log(item);
                         dispatch(layThongTinHeThongRapChieuAction(item));
                       }}
                     >
@@ -125,26 +124,29 @@ const ChiTietPhim = () => {
                 );
               })}
             </div>
-            <div className="w-9/12 p-8">
+            <div className="w-7/12 md:w-full p-3 md:p-8">
               {heThongRapChieu.cumRapChieu?.map((item, index) => {
-                console.log(item);
                 return (
                   <div key={item.index} className="my-5">
                     <div className="my-2 flex">
-                      <img src={item.hinhAnh} alt="" width={50} />
+                      <img
+                        src={item.hinhAnh}
+                        alt=""
+                        className="w-[50px] h-[50px]"
+                      />
                       <div className="ml-2">
                         <div>{item.tenCumRap}</div>
                         <div className="text-xs">{item.diaChi}</div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-items-center">
                       {item.lichChieuPhim?.map((item2, index2) => {
                         return (
                           <NavLink
                             key={index2}
                             to={`/chitietphongve/${item2.maLichChieu}`}
                           >
-                            <div className="border border-solid boder-[#9e9e9e]  p-2 text-center align-middle bg-[#FAFAFA] rounded-md hover:text-lg transition-all duration-500 h-[40px] hover:h-[46px]">
+                            <div className="border border-solid boder-[#9e9e9e]  p-2 text-center align-middle bg-[#FAFAFA] rounded-md hover:text-lg transition-all duration-500 h-[40px] hover:h-[46px] w-[200px]">
                               {tachNgayGio(
                                 format(
                                   new Date(item2.ngayChieuGioChieu),
