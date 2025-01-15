@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { layThongTinLichChieuPhimAction } from "../Redux/heThongRapChieuReducer";
-import { layThongTinHeThongRapChieuAction } from "../Redux/heThongRapChieuReducer";
+import { layThongTinLichChieuPhimAction } from "../Redux/Reducer/heThongRapChieuReducer";
+import { layThongTinHeThongRapChieuAction } from "../Redux/Reducer/heThongRapChieuReducer";
 import { format } from "date-fns";
 const ChiTietPhim = () => {
   const { id } = useParams();

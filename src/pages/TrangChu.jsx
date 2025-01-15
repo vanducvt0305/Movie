@@ -8,7 +8,7 @@ import {
   layThongTinThuongHieuRapAction,
   renderNgayGioChieuPhimChiTietAction,
   renderThongTinCumRapAction,
-} from "../Redux/thongTinThuongHieuRapReducer";
+} from "../Redux/Reducer/thongTinThuongHieuRapReducer";
 import { NavLink } from "react-router-dom";
 
 const TrangChu = () => {
@@ -33,7 +33,7 @@ const TrangChu = () => {
     })
       .then((res) => {
         const newListFilm = res.data.content.filter((item, index) => {
-          console.log(item);
+          // console.log(item);
           return index < 8 && index % 2 === 0;
         });
         setListPhim(newListFilm);
