@@ -54,7 +54,7 @@ const ChiTietPhongVe = () => {
     })
       .then((res) => {
         alert(res.data.content);
-        // Đang xử lý thanh toán thành công ở đây
+        dispatch(xuLyThanhToanAction("1"));
       })
       .catch((err) => {
         console.log(err);
@@ -144,69 +144,73 @@ const ChiTietPhongVe = () => {
               </div>
             </div>
             <div className="container mx-auto">
-              <table className="min-w-full table-auto border-collapse border border-gray-200 rounded-md overflow-hidden">
-                <thead>
-                  <tr className="bg-[#FFA500]">
-                    <th className="px-4 py-2">Số Ghế</th>
-                    <th className="px-4 py-2">Giá</th>
-                    <th className="px-4 py-2">Hành Động</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {danhSachGhe?.map((item, index) => (
-                    <tr key={index}>
-                      {item?.gheDangDat ? (
-                        <td className="text-center  bg-[#FFA500]">
-                          {item?.stt}
-                        </td>
-                      ) : (
-                        ""
-                      )}
-                      {item?.gheDangDat ? (
-                        <td className="text-center bg-[#FFA500]">
-                          {item?.giaVe}
-                        </td>
-                      ) : (
-                        ""
-                      )}
-                      {item?.gheDangDat ? (
-                        <td className="px-4 py-2 text-center  bg-[#FFA500]">
-                          <button
-                            onClick={() => {
-                              handleDelete(index);
-                            }}
-                            className="bg-orange-500 px-4 py-2 rounded-md text-white hover:bg-red-600 transition-all duration-300"
-                          >
-                            Xoá
-                          </button>
-                        </td>
-                      ) : (
-                        ""
-                      )}
+              {gheDangDat.length > 0 ? (
+                <table className="min-w-full table-auto border-collapse border border-gray-200 rounded-md overflow-hidden">
+                  <thead>
+                    <tr className="bg-[#FFA500]">
+                      <th className="px-4 py-2">Số Ghế</th>
+                      <th className="px-4 py-2">Giá</th>
+                      <th className="px-4 py-2">Hành Động</th>
                     </tr>
-                  ))}
-                </tbody>
-                <tfoot className="bg-[#FFA500]">
-                  <tr className="w-full text-md font-bold">
-                    <td className="text-center px-4 py-2">Tổng Cộng </td>
-                    <td className="text-center px-4 py-2">
-                      {gheDangDat?.reduce((tongCong, item) => {
-                        return tongCong + item.giaVe;
-                      }, 0)}
-                    </td>
-                    <td className="text-center px-4 py-2">
-                      <button
-                        className="px-4 py-2 bg-green-600 rounded-md"
-                        onClick={() => {
-                          handleThanhToan();
-                        }}
-                      >
-                        Thanh Toán
-                      </button>
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                  </thead>
+                  <tbody>
+                    {danhSachGhe?.map((item, index) => (
+                      <tr key={index}>
+                        {item?.gheDangDat ? (
+                          <td className="text-center  bg-[#FFA500]">
+                            {item?.stt}
+                          </td>
+                        ) : (
+                          ""
+                        )}
+                        {item?.gheDangDat ? (
+                          <td className="text-center bg-[#FFA500]">
+                            {item?.giaVe}
+                          </td>
+                        ) : (
+                          ""
+                        )}
+                        {item?.gheDangDat ? (
+                          <td className="px-4 py-2 text-center  bg-[#FFA500]">
+                            <button
+                              onClick={() => {
+                                handleDelete(index);
+                              }}
+                              className="bg-orange-500 px-4 py-2 rounded-md text-white hover:bg-red-600 transition-all duration-300"
+                            >
+                              Xoá
+                            </button>
+                          </td>
+                        ) : (
+                          ""
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot className="bg-[#FFA500]">
+                    <tr className="w-full text-md font-bold">
+                      <td className="text-center px-4 py-2">Tổng Cộng </td>
+                      <td className="text-center px-4 py-2">
+                        {gheDangDat?.reduce((tongCong, item) => {
+                          return tongCong + item.giaVe;
+                        }, 0) || ""}
+                      </td>
+                      <td className="text-center px-4 py-2">
+                        <button
+                          className="px-4 py-2 bg-green-600 rounded-md"
+                          onClick={() => {
+                            handleThanhToan();
+                          }}
+                        >
+                          Thanh Toán
+                        </button>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

@@ -40,9 +40,10 @@ const datVeReducer = createSlice({
       });
     },
     xuLyThanhToanAction: (state, action) => {
-      // state.danhSachGhe = state.danhSachGhe.map((item) => {
-      //   item.gheDangDat ? { ...item, gheDangDat: false } : item;
-      // });
+      state.danhSachGhe = state.danhSachGhe.map((item) => {
+        return item.gheDangDat ? { ...item, gheDangDat: false } : item;
+      });
+      state.gheDangDat = [];
       // Đang xử lý thanh toán ở đây
     },
   },
