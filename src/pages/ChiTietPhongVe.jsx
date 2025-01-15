@@ -6,11 +6,12 @@ import {
   handleDeleteAction,
   layGheDangDatAction,
   layThongTinPhimVaDanhSachGheAction,
+  xuLyThanhToanAction,
 } from "../Redux/Reducer/datVeReducer";
 
 const ChiTietPhongVe = () => {
   const dispatch = useDispatch();
-  const { danhSachGhe, thongTinPhim, datVe, gheDangDat } = useSelector(
+  const { danhSachGhe, thongTinPhim, gheDangDat } = useSelector(
     (state) => state.datVeReducer
   );
 
@@ -32,18 +33,12 @@ const ChiTietPhongVe = () => {
       });
   };
   const handleThanhToan = () => {
-    // console.log(thongTinPhim.maLichChieu);
-
-    // Các key bạn muốn giữ lại
     const keysToKeep = ["maGhe", "giaVe"];
-
-    // Lọc danh sách ghế, chỉ giữ các key cần thiết
     const danhSachGheMoi = gheDangDat.map((item) =>
       Object.fromEntries(
         Object.entries(item).filter(([key]) => keysToKeep.includes(key))
       )
     );
-
     axios({
       url: `https://movienew.cybersoft.edu.vn/api/QuanLyDatVe/DatVe`,
       method: "POST",
@@ -58,8 +53,8 @@ const ChiTietPhongVe = () => {
       },
     })
       .then((res) => {
-        // console.log(res.data.content);
         alert(res.data.content);
+        // Đang xử lý thanh toán thành công ở đây
       })
       .catch((err) => {
         console.log(err);
@@ -103,7 +98,7 @@ const ChiTietPhongVe = () => {
                         dispatch(layGheDangDatAction(item));
                       }}
                     >
-                      {item.daDat ? "X" : item.stt}
+                      {item?.daDat ? "X" : item?.stt}
                     </button>
                   </div>
                 );
@@ -160,21 +155,21 @@ const ChiTietPhongVe = () => {
                 <tbody>
                   {danhSachGhe?.map((item, index) => (
                     <tr key={index}>
-                      {item.gheDangDat ? (
+                      {item?.gheDangDat ? (
                         <td className="text-center  bg-[#FFA500]">
-                          {item.stt}
+                          {item?.stt}
                         </td>
                       ) : (
                         ""
                       )}
-                      {item.gheDangDat ? (
+                      {item?.gheDangDat ? (
                         <td className="text-center bg-[#FFA500]">
-                          {item.giaVe}
+                          {item?.giaVe}
                         </td>
                       ) : (
                         ""
                       )}
-                      {item.gheDangDat ? (
+                      {item?.gheDangDat ? (
                         <td className="px-4 py-2 text-center  bg-[#FFA500]">
                           <button
                             onClick={() => {

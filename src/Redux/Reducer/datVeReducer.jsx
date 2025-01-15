@@ -3,10 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   danhSachGhe: [],
   thongTinPhim: {},
-  datVe: {
-    maLichChieu: 0,
-    danhSachVe: [],
-  },
   gheDangDat: [],
 };
 
@@ -43,6 +39,12 @@ const datVeReducer = createSlice({
         return item.gheDangDat === true;
       });
     },
+    xuLyThanhToanAction: (state, action) => {
+      // state.danhSachGhe = state.danhSachGhe.map((item) => {
+      //   item.gheDangDat ? { ...item, gheDangDat: false } : item;
+      // });
+      // Đang xử lý thanh toán ở đây
+    },
   },
 });
 
@@ -50,6 +52,7 @@ export const {
   layThongTinPhimVaDanhSachGheAction,
   layGheDangDatAction,
   handleDeleteAction,
+  xuLyThanhToanAction,
 } = datVeReducer.actions;
 
 export default datVeReducer.reducer;
