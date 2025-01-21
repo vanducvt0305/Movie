@@ -14,6 +14,10 @@ const initialState = {
     username: localStorage.getItem(USER_NAME),
     password: localStorage.getItem(PASSWORD),
   }, // depend on state of rememberAccount
+  userInfo: {
+    taiKhoan: "",
+    hoTen: "",
+  },
 };
 
 const loginReducer = createSlice({
@@ -39,6 +43,9 @@ const loginReducer = createSlice({
       state.loginInfo.username = action.payload.username;
       state.loginInfo.password = action.payload.password;
     },
+    handleUserInfo(state, action) {
+      state.userInfo = action.payload;
+    },
   },
 });
 
@@ -49,6 +56,7 @@ export const {
   handleValidationErr,
   handleRememberAccount,
   handleLoginInfo,
+  handleUserInfo,
 } = loginReducer.actions;
 
 export default loginReducer.reducer;

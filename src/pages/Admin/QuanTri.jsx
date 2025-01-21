@@ -78,8 +78,10 @@ const QuanTri = () => {
                   <span>{adminInfo.adminAccount}</span>
                 </p>
                 <p>
-                  Nhóm:
-                  <span>{adminInfo.adminGroup}</span>
+                  SDT:
+                  <span>
+                    {adminInfo.adminPhone ? adminInfo.adminPhone : "..."}
+                  </span>
                 </p>
                 <p>
                   Email:

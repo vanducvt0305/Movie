@@ -1,18 +1,20 @@
-import { useSelector } from "react-redux";
 import {
   ACCESS_TOKEN,
   LOGIN_API,
   PASSWORD,
   REMEMBER_ACCOUNT,
+  USER_INFO_API,
   USER_NAME,
   TOKEN_CYBERSOFT
 } from "../../Services/constant";
+import { adminHttp } from "../../Services/Interceptor/adminInterceptor";
 import { authHttp } from "../../Services/Interceptor/authInterceptor";
 import {
   handleAlertLoginSuccess,
   handleLoading,
   handleLoginInfo,
   handleOpenModalAlert,
+  handleUserInfo,
   handleValidationErr,
 } from "../Reducer/loginReducer";
 
@@ -67,5 +69,17 @@ export const handleLoginAction = (values, rememberAccount) => {
   };
 };
 
-// Anh mới kiểm tra, lí do em k lấy dc id là do 1 bạn code cái phương thức get yêu cầu phải truyền thêm cái token của Cybersoft á
 
+// Anh mới kiểm tra, lí do em k lấy dc id là do 1 bạn code cái phương thức get yêu cầu phải truyền thêm cái token của Cybersoft á
+export const getUserInfo = () => {
+  return async (dispatch, getState) => {
+    adminHttp;
+    USER_INFO_API;
+    const response = await adminHttp.post(USER_INFO_API);
+    if (response.status === 200) {
+      dispatch(handleUserInfo(response.data.content));
+    } else {
+      alert(response.data.content);
+    }
+  };
+};
