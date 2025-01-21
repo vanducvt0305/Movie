@@ -5,6 +5,7 @@ import {
   REMEMBER_ACCOUNT,
   USER_INFO_API,
   USER_NAME,
+  TOKEN_CYBERSOFT
 } from "../../Services/constant";
 import { adminHttp } from "../../Services/Interceptor/adminInterceptor";
 import { authHttp } from "../../Services/Interceptor/authInterceptor";
@@ -50,6 +51,8 @@ export const handleLoginAction = (values, rememberAccount) => {
       localStorage.setItem(USER_NAME, values.username);
       localStorage.setItem(PASSWORD, values.password);
       localStorage.setItem(ACCESS_TOKEN, response.data.content.accessToken);
+      // localStorage.setItem("TOKEN_CYBERSOFT", TOKEN_CYBERSOFT)
+
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);
@@ -66,6 +69,8 @@ export const handleLoginAction = (values, rememberAccount) => {
   };
 };
 
+
+// Anh mới kiểm tra, lí do em k lấy dc id là do 1 bạn code cái phương thức get yêu cầu phải truyền thêm cái token của Cybersoft á
 export const getUserInfo = () => {
   return async (dispatch, getState) => {
     adminHttp;
